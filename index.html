@@ -1,122 +1,252 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | PC game that will make it far</title>
-    <link rel="shortcut icon" href="TemplateData/favicon.ico">
-    <link rel="stylesheet" href="TemplateData/style.css">
-  </head>
-  <body>
-    <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
-      <div id="unity-loading-bar">
-        <div id="unity-logo"></div>
-        <div id="unity-progress-bar-empty">
-          <div id="unity-progress-bar-full"></div>
-        </div>
-      </div>
-      <div id="unity-warning"> </div>
-      <div id="unity-footer">
-        <div id="unity-webgl-logo"></div>
-        <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">PC game that will make it far</div>
-      </div>
-    </div>
-    <script>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hollow Spire</title>
+<link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-dark: #0b0b0b;
+  --bg-light: #f0f0f0;
+  --text-dark: #fff8f0;
+  --text-light: #222222;
+}
 
-      var container = document.querySelector("#unity-container");
-      var canvas = document.querySelector("#unity-canvas");
-      var loadingBar = document.querySelector("#unity-loading-bar");
-      var progressBarFull = document.querySelector("#unity-progress-bar-full");
-      var fullscreenButton = document.querySelector("#unity-fullscreen-button");
-      var warningBanner = document.querySelector("#unity-warning");
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(-45deg, var(--bg-dark), #1a1a1a, var(--bg-dark), #1a1a1a);
+  background-size: 400% 400%;
+  color: var(--text-dark);
+  animation: gradientBG 15s ease infinite;
+  overflow: hidden;
+  perspective: 1200px;
+  transition: background 0.3s, color 0.3s;
+}
 
-      // Shows a temporary message banner/ribbon for a few seconds, or
-      // a permanent error message on top of the canvas if type=='error'.
-      // If type=='warning', a yellow highlight color is used.
-      // Modify or remove this function to customize the visually presented
-      // way that non-critical warnings and error messages are presented to the
-      // user.
-      function unityShowBanner(msg, type) {
-        function updateBannerVisibility() {
-          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
-        }
-        var div = document.createElement('div');
-        div.innerHTML = msg;
-        warningBanner.appendChild(div);
-        if (type == 'error') div.style = 'background: red; padding: 10px;';
-        else {
-          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
-          setTimeout(function() {
-            warningBanner.removeChild(div);
-            updateBannerVisibility();
-          }, 5000);
-        }
-        updateBannerVisibility();
-      }
+body.light {
+  background: linear-gradient(-45deg, var(--bg-light), #e0e0e0, var(--bg-light), #e0e0e0);
+  color: var(--text-light);
+}
 
-      var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/game builds.loader.js";
-      var config = {
-        dataUrl: buildUrl + "/game builds.data.gz",
-        frameworkUrl: buildUrl + "/game builds.framework.js.gz",
-        codeUrl: buildUrl + "/game builds.wasm.gz",
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "DefaultCompany",
-        productName: "PC game that will make it far",
-        productVersion: "1.0",
-        showBanner: unityShowBanner,
-      };
+@keyframes gradientBG {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
 
-      // By default, Unity keeps WebGL canvas render target size matched with
-      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
-      // Set this to false if you want to decouple this synchronization from
-      // happening inside the engine, and you would instead like to size up
-      // the canvas DOM size and WebGL render target sizes yourself.
-      // config.matchWebGLToCanvasSize = false;
+.container {
+  width: 90%;
+  max-width: 900px;
+  min-height: 70vh;
+  margin: 80px auto;
+  padding: 60px 50px 40px 50px;
+  border-radius: 20px;
+  background: rgba(30,15,5,0.7);
+  background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+  border: 3px solid #b58350;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: visible;
+  text-align: center;
+  transition: transform 0.1s;
+}
 
-      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        // Mobile device style: fill the whole browser client area with the game canvas:
+.page {
+  display: none;
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  transition: all 0.5s ease;
+  width: 100%;
+}
+.page.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
 
-        var meta = document.createElement('meta');
-        meta.name = 'viewport';
-        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-        document.getElementsByTagName('head')[0].appendChild(meta);
-        container.className = "unity-mobile";
-        canvas.className = "unity-mobile";
+h1 {
+  font-family: 'MedievalSharp', cursive;
+  font-size: 3em;
+  color: #ffdca8;
+  text-shadow: 0 0 20px rgba(255,200,150,0.7), 0 0 40px rgba(255,150,50,0.4);
+  margin-bottom: 30px;
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+@keyframes titleGlow {
+  0% { text-shadow: 0 0 15px rgba(255,200,150,0.5), 0 0 25px rgba(255,150,50,0.3); }
+  100% { text-shadow: 0 0 25px rgba(255,220,180,0.7), 0 0 50px rgba(255,180,80,0.5); }
+}
 
-        // To lower canvas resolution on mobile devices to gain some
-        // performance, uncomment the following line:
-        // config.devicePixelRatio = 1;
+.button {
+  display: block;
+  margin: 12px auto;
+  padding: 12px 25px;
+  font-size: 1.2em;
+  font-weight: 600;
+  border-radius: 15px;
+  border: 2px solid rgba(255,215,180,0.5);
+  cursor: pointer;
+  background: linear-gradient(135deg, rgba(30,30,30,0.8), rgba(50,50,50,0.8));
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(255,160,50,0.4);
+  width: 250px;
+  text-align: center;
+  transition: all 0.4s ease;
+}
+.button:hover {
+  transform: scale(1.08);
+  background: linear-gradient(135deg, #d3a15b, #ffb873);
+  box-shadow: 0 0 20px 3px #ffb873, 0 0 30px 8px rgba(255,180,100,0.5);
+}
+.button.back {
+  background: linear-gradient(135deg, #b75c4d, #ff6a4a);
+  color: #fff;
+  border: 2px solid rgba(255,120,80,0.5);
+}
+.button.back:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 20px 3px #ff6a4a, 0 0 30px 8px rgba(255,120,100,0.5);
+}
 
+.theme-wrapper {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+.theme-select {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  font-size: 1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.theme-select:hover { opacity: 0.8; }
 
-      } else {
-        // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
+.particle { position: absolute; width: 6px; height: 6px; background: rgba(255,160,50,0.3); border-radius: 50%; pointer-events: none; filter: blur(2px);}
+.cube { position: fixed; width: 20px; height: 20px; background: rgba(255,180,50,0.3); box-shadow: 0 0 8px rgba(255,180,50,0.6); transform-style: preserve-3d; animation: cubeFloat 8s infinite ease-in-out alternate;}
+@keyframes cubeFloat {0% { transform: translate3d(0,0,0) rotateX(0deg) rotateY(0deg);} 50% { transform: translate3d(120px,-150px,50px) rotateX(180deg) rotateY(180deg);} 100% { transform: translate3d(0,0,0) rotateX(360deg) rotateY(360deg); }}
+.rune { position: fixed; font-family: 'MedievalSharp', cursive; color: rgba(255,200,100,0.5); font-size: 1.5em; animation: runeFloat 4s infinite alternate ease-in-out;}
+@keyframes runeFloat { 0% { transform: translate(0,0) scale(1); opacity:0.4; } 50% { transform: translate(15px,-60px) scale(1.1); opacity:0.6; } 100% { transform: translate(-10px,-120px) scale(1.2); opacity:0.8; } }
+</style>
+</head>
+<body>
+<div class="theme-wrapper">
+  <select id="theme" class="theme-select">
+    <option value="dark">Dark</option>
+    <option value="light">Light</option>
+  </select>
+</div>
 
-        canvas.style.width = "960px";
-        canvas.style.height = "600px";
-      }
+<div class="container">
+  <div id="menu" class="page active">
+    <h1>Hollow Spire</h1>
+    <button class="button" onclick="clickButton(event,'story')">Story</button>
+    <button class="button" onclick="clickButton(event,'characters')">Characters</button>
+    <button class="button" onclick="clickButton(event,'world')">World</button>
+    <button class="button" onclick="clickButton(event,'upcoming')">Upcoming Content</button>
+    <button class="button" onclick="clickButton(event,'settings')">Settings</button>
+  </div>
 
-      loadingBar.style.display = "block";
+  <div id="story" class="page">
+    <h1>Story</h1>
+    <p>This is the story of Hollow Spire...</p>
+    <button class="button back" onclick="clickButton(event,'menu')">Back</button>
+  </div>
 
-      var script = document.createElement("script");
-      script.src = loaderUrl;
-      script.onload = () => {
-        createUnityInstance(canvas, config, (progress) => {
-          progressBarFull.style.width = 100 * progress + "%";
-              }).then((unityInstance) => {
-                loadingBar.style.display = "none";
-                fullscreenButton.onclick = () => {
-                  unityInstance.SetFullscreen(1);
-                };
-              }).catch((message) => {
-                alert(message);
-              });
-            };
+  <div id="characters" class="page">
+    <h1>Characters</h1>
+    <p>Meet the characters of Hollow Spire...</p>
+    <button class="button back" onclick="clickButton(event,'menu')">Back</button>
+  </div>
 
-      document.body.appendChild(script);
+  <div id="world" class="page">
+    <h1>World</h1>
+    <p>Explore the vast world of Hollow Spire...</p>
+    <button class="button back" onclick="clickButton(event,'menu')">Back</button>
+  </div>
 
-    </script>
-  </body>
+  <div id="upcoming" class="page">
+    <h1>Upcoming Content</h1>
+    <p>Discover what's coming next in Hollow Spire...</p>
+    <button class="button back" onclick="clickButton(event,'menu')">Back</button>
+  </div>
+
+  <div id="settings" class="page">
+    <h1>Settings & Rules</h1>
+    <button class="button" onclick="clickButton(event,'privacy')">Privacy Policy</button>
+    <button class="button" onclick="clickButton(event,'terms')">Terms & Conditions</button>
+    <button class="button" onclick="clickButton(event,'community')">Community Rules</button>
+    <button class="button" onclick="clickButton(event,'sharing')">Sharing Rules</button>
+    <button class="button back" onclick="clickButton(event,'menu')">Back</button>
+  </div>
+
+  <div id="privacy" class="page"><h1>Privacy Policy</h1><p>Your privacy is important. We collect minimal data...</p><button class="button back" onclick="clickButton(event,'settings')">Back</button></div>
+  <div id="terms" class="page"><h1>Terms & Conditions</h1><p>By using this site, you agree to our terms...</p><button class="button back" onclick="clickButton(event,'settings')">Back</button></div>
+  <div id="community" class="page"><h1>Community Rules</h1><p>Be respectful. No harassment or spam...</p><button class="button back" onclick="clickButton(event,'settings')">Back</button></div>
+  <div id="sharing" class="page"><h1>Sharing Rules</h1><p>Do not share private information or content...</p><button class="button back" onclick="clickButton(event,'settings')">Back</button></div>
+</div>
+
+<script>
+const themeSelect = document.getElementById('theme');
+themeSelect.addEventListener('change', () => {
+  if(themeSelect.value==='light') document.body.classList.add('light');
+  else document.body.classList.remove('light');
+});
+
+function clickButton(e,pageId){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+}
+
+let particles=[];
+function createParticle(x,y){
+  const p=document.createElement('div');
+  p.className='particle';
+  p.style.left=x+'px';
+  p.style.top=y+'px';
+  const size=4+Math.random()*6;
+  p.style.width=p.style.height=size+'px';
+  document.body.appendChild(p);
+  particles.push(p);
+  setTimeout(()=>{ p.remove(); particles=particles.filter(x=>x!==p); },1000+Math.random()*1000);
+}
+setInterval(()=>{ createParticle(Math.random()*window.innerWidth, Math.random()*window.innerHeight); },120);
+
+for(let i=0;i<12;i++){
+  const cube=document.createElement('div');
+  cube.className='cube';
+  cube.style.left=Math.random()*100+'vw';
+  cube.style.top=Math.random()*100+'vh';
+  const size=15+Math.random()*20;
+  cube.style.width=cube.style.height=size+'px';
+  cube.style.animationDuration=(6+Math.random()*6)+'s';
+  document.body.appendChild(cube);
+}
+
+const symbols=['✦','✧','⚝','✵','✹','❂'];
+for(let i=0;i<18;i++){
+  const rune=document.createElement('div');
+  rune.className='rune';
+  rune.innerText=symbols[Math.floor(Math.random()*symbols.length)];
+  rune.style.left=Math.random()*90+'vw';
+  rune.style.bottom=Math.random()*50+'px';
+  document.body.appendChild(rune);
+}
+
+document.addEventListener('mousemove', e=>{
+  const moveX=(e.clientX/window.innerWidth-0.5)*10;
+  const moveY=(e.clientY/window.innerHeight-0.5)*10;
+  document.querySelector('.container').style.transform=`translate(${moveX}px,${moveY}px)`;
+});
+</script>
+</body>
 </html>
