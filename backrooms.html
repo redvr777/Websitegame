@@ -9,7 +9,7 @@
       margin: 0;
       height: 100vh;
       font-family: 'Press Start 2P', monospace;
-      background: linear-gradient(120deg, #fdf589 0%, #e6e068 100%);
+      background: linear-gradient(120deg, #fdf589 0%, #f0e87c 30%, #dfe08c 60%, #f9f1a2 100%);
       color: #111;
       overflow: hidden;
       text-align: center;
@@ -27,11 +27,12 @@
       max-width: 700px;
       margin: 20px auto;
       line-height: 1.6;
-      background: rgba(255,255,200,0.2);
+      background: rgba(255,255,200,0.15);
       padding: 15px 20px;
       border: 2px solid #c9c255;
       border-radius: 10px;
-      box-shadow: 0 0 8px rgba(200,200,150,0.4);
+      box-shadow: 0 0 8px rgba(200,200,150,0.3);
+      text-align: left;
     }
 
     a.back {
@@ -53,7 +54,6 @@
       box-shadow: 0 0 12px #fff;
     }
 
-    /* Particle canvas */
     #particles {
       position: absolute;
       top: 0;
@@ -69,16 +69,17 @@
 
   <h1>You are in the Backrooms...</h1>
   <p>
-    This is only an idea at the moment — not a real development right now.  
-    But if it becomes reality, it will be a <b>hyper-realistic multiplayer Backrooms game</b>  
-    where you and your friends can explore endless halls, flickering lights, and strange anomalies together.  
-    Tread carefully, for the Backrooms hold mysteries and dangers beyond imagination.
+    This is currently just an idea — not a real game yet.  
+    But if it comes to life, it will be a <b>hyper-realistic multiplayer experience</b> where you and your friends wander through endless, buzzing fluorescent hallways.  
+    <br><br>
+    The corridors twist and repeat endlessly, the lights flicker unpredictably, and faint, unplaceable noises echo from unseen rooms. Every corner hides subtle anomalies — warped walls, strange furniture, and doors that lead nowhere.  
+    <br><br>
+    Survive, explore, and uncover secrets — if you dare.
   </p>
 
   <a href="/" class="back">⬅ Back to Menu</a>
 
   <script>
-    // Particles (glitchy yellowish sparks)
     const canvas = document.getElementById("particles");
     const ctx = canvas.getContext("2d");
     canvas.width = window.innerWidth;
@@ -88,23 +89,42 @@
 
     class Particle {
       constructor() {
+        this.reset();
+      }
+      reset() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
         this.size = Math.random() * 2 + 1;
         this.speedX = (Math.random() - 0.5) * 0.5;
         this.speedY = (Math.random() - 0.5) * 0.5;
         this.opacity = Math.random() * 0.7 + 0.2;
+        this.colorShift = Math.random();
       }
       update() {
         this.x += this.speedX;
         this.y += this.speedY;
+
+        // occasional glitch jump
+        if (Math.random() < 0.002) {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+        }
+
         if (this.x < 0) this.x = canvas.width;
         if (this.x > canvas.width) this.x = 0;
         if (this.y < 0) this.y = canvas.height;
         if (this.y > canvas.height) this.y = 0;
+
+        // flicker opacity
+        this.opacity += (Math.random() - 0.5) * 0.05;
+        if(this.opacity < 0.1) this.opacity = 0.1;
+        if(this.opacity > 0.9) this.opacity = 0.9;
       }
       draw() {
-        ctx.fillStyle = `rgba(200,200,150,${this.opacity})`;
+        let r = 200 + 55 * this.colorShift;
+        let g = 200 + 55 * this.colorShift;
+        let b = 150;
+        ctx.fillStyle = `rgba(${r},${g},${b},${this.opacity})`;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -113,7 +133,7 @@
 
     function initParticles() {
       particles = [];
-      for (let i = 0; i < 120; i++) {
+      for (let i = 0; i < 150; i++) {
         particles.push(new Particle());
       }
     }
@@ -136,7 +156,7 @@
       initParticles();
     });
 
-    // Parallax screen movement with mouse
+    // Parallax screen movement
     document.addEventListener("mousemove", e => {
       let moveX = (e.clientX / window.innerWidth - 0.5) * 20;
       let moveY = (e.clientY / window.innerHeight - 0.5) * 20;
