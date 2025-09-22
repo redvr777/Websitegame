@@ -1,40 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <style>
-  * {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-</style>
 <meta charset="UTF-8">
-<title>Hollow Spire</title>
-<link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+<title>Main Menu - Retro</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg-dark: #0b0b0b;
-  --bg-light: #f0f0f0;
-  --text-dark: #fff8f0;
-  --text-light: #222222;
+  --bg-dark: #0d0024;
+  --neon-pink: #ff2d95;
+  --neon-blue: #00faff;
+  --neon-purple: #9d4dff;
+  --text-light: #e0e0e0;
 }
 
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  background: linear-gradient(-45deg, var(--bg-dark), #1a1a1a, var(--bg-dark), #1a1a1a);
+  background: linear-gradient(-45deg, #0d0024, #120038, #1a003f, #0d0024);
   background-size: 400% 400%;
-  color: var(--text-dark);
+  color: var(--text-light);
   animation: gradientBG 15s ease infinite;
   overflow: hidden;
-  perspective: 1200px;
-  transition: background 0.3s, color 0.3s;
-}
-
-body.light {
-  background: linear-gradient(-45deg, var(--bg-light), #e0e0e0, var(--bg-light), #e0e0e0);
-  color: var(--text-light);
 }
 
 @keyframes gradientBG {
@@ -45,292 +31,136 @@ body.light {
 
 .container {
   width: 90%;
-  max-width: 900px;
-  min-height: 70vh;
-  margin: 80px auto;
-  padding: 60px 50px 40px 50px;
+  max-width: 700px;
+  margin: 100px auto;
+  padding: 60px 50px;
   border-radius: 20px;
-  background: rgba(30,15,5,0.7);
-  background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 4px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.7);
-  border: 3px solid #b58350;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: visible;
+  background: rgba(20,10,40,0.7);
+  box-shadow: 0 0 25px rgba(255,45,149,0.5), 0 0 40px rgba(0,250,255,0.3);
   text-align: center;
-  transition: transform 0.1s;
-}
-
-.page {
-  display: none;
-  opacity: 0;
-  transform: translateY(30px) scale(0.95);
-  transition: all 0.5s ease;
-  width: 100%;
-}
-.page.active {
-  display: block;
-  opacity: 1;
-  transform: translateY(0) scale(1);
+  border: 2px solid var(--neon-purple);
 }
 
 h1 {
-  font-family: 'MedievalSharp', cursive;
-  font-size: 3em;
-  color: #ffdca8;
-  text-shadow: 0 0 20px rgba(255,200,150,0.7), 0 0 40px rgba(255,150,50,0.4);
-  margin-bottom: 30px;
-  animation: titleGlow 3s ease-in-out infinite alternate;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 2.5em;
+  color: var(--neon-blue);
+  text-shadow: 0 0 5px var(--neon-blue), 0 0 15px var(--neon-pink), 0 0 30px var(--neon-purple);
+  margin-bottom: 40px;
+  animation: flicker 2s infinite alternate;
 }
-@keyframes titleGlow {
-  0% { text-shadow: 0 0 15px rgba(255,200,150,0.5), 0 0 25px rgba(255,150,50,0.3); }
-  100% { text-shadow: 0 0 25px rgba(255,220,180,0.7), 0 0 50px rgba(255,180,80,0.5); }
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+  20%, 24%, 55% { opacity: 0.7; }
 }
 
 .button {
   display: block;
-  margin: 12px auto;
-  padding: 12px 25px;
+  margin: 20px auto;
+  padding: 18px 30px;
   font-size: 1.2em;
-  font-weight: 600;
-  border-radius: 15px;
-  border: 2px solid rgba(255,215,180,0.5);
+  font-weight: 700;
+  border-radius: 12px;
+  border: 2px solid var(--neon-pink);
   cursor: pointer;
-  background: linear-gradient(135deg, rgba(30,30,30,0.8), rgba(50,50,50,0.8));
-  color: #fff;
-  box-shadow: 0 8px 20px rgba(255,160,50,0.4);
-  width: 250px;
+  background: rgba(20,20,40,0.8);
+  color: var(--text-light);
+  box-shadow: 0 0 15px var(--neon-pink), 0 0 25px var(--neon-purple);
+  width: 280px;
   text-align: center;
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
+  font-family: 'Press Start 2P', cursive;
 }
 .button:hover {
-  transform: scale(1.08);
-  background: linear-gradient(135deg, #d3a15b, #ffb873);
-  box-shadow: 0 0 20px 3px #ffb873, 0 0 30px 8px rgba(255,180,100,0.5);
-}
-.button.back {
-  background: linear-gradient(135deg, #b75c4d, #ff6a4a);
-  color: #fff;
-  border: 2px solid rgba(255,120,80,0.5);
-}
-.button.back:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 20px 3px #ff6a4a, 0 0 30px 8px rgba(255,120,100,0.5);
+  transform: scale(1.1);
+  background: linear-gradient(135deg, var(--neon-blue), var(--neon-pink));
+  color: black;
+  text-shadow: none;
+  box-shadow: 0 0 20px var(--neon-blue), 0 0 35px var(--neon-pink);
 }
 
-.theme-wrapper {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
+/* particles, neon shapes */
+.particle { 
+  position: absolute; 
+  width: 6px; 
+  height: 6px; 
+  background: rgba(255,255,255,0.8); 
+  border-radius: 50%; 
+  pointer-events: none; 
+  filter: blur(1px);
 }
-.theme-select {
-  padding: 10px 14px;
-  border-radius: 10px;
-  border: none;
-  background: rgba(0,0,0,0.6);
-  color: #fff;
-  font-size: 1em;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-.theme-select:hover { opacity: 0.8; }
 
-.particle { position: absolute; width: 6px; height: 6px; background: rgba(255,160,50,0.3); border-radius: 50%; pointer-events: none; filter: blur(2px);}
-.cube { position: fixed; width: 20px; height: 20px; background: rgba(255,180,50,0.3); box-shadow: 0 0 8px rgba(255,180,50,0.6); transform-style: preserve-3d; animation: cubeFloat 8s infinite ease-in-out alternate;}
-@keyframes cubeFloat {0% { transform: translate3d(0,0,0) rotateX(0deg) rotateY(0deg);} 50% { transform: translate3d(120px,-150px,50px) rotateX(180deg) rotateY(180deg);} 100% { transform: translate3d(0,0,0) rotateX(360deg) rotateY(360deg); }}
-.rune { position: fixed; font-family: 'MedievalSharp', cursive; color: rgba(255,200,100,0.5); font-size: 1.5em; animation: runeFloat 4s infinite alternate ease-in-out;}
-@keyframes runeFloat { 0% { transform: translate(0,0) scale(1); opacity:0.4; } 50% { transform: translate(15px,-60px) scale(1.1); opacity:0.6; } 100% { transform: translate(-10px,-120px) scale(1.2); opacity:0.8; } }
+.square {
+  position: fixed; 
+  width: 25px; 
+  height: 25px; 
+  border: 2px solid var(--neon-pink); 
+  opacity: 0.6; 
+  animation: floatSquare 10s infinite ease-in-out;
+}
+@keyframes floatSquare {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-150px) rotate(180deg); }
+  100% { transform: translateY(0) rotate(360deg); }
+}
+
+.triangle {
+  position: fixed; 
+  width: 0; 
+  height: 0; 
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 30px solid var(--neon-blue);
+  opacity: 0.6;
+  animation: floatTri 8s infinite ease-in-out;
+}
+@keyframes floatTri {
+  0% { transform: translateX(0) rotate(0deg); }
+  50% { transform: translateX(100px) rotate(180deg); }
+  100% { transform: translateX(0) rotate(360deg); }
+}
 </style>
 </head>
 <body>
-<div class="theme-wrapper">
-  <select id="theme" class="theme-select">
-    <option value="dark">Dark</option>
-    <option value="light">Light</option>
-  </select>
-</div>
-
 <div class="container">
-  <div id="menu" class="page active">
-    <h1>Hollow Spire</h1>
-    <button class="button" onclick="clickButton(event,'story')">Story</button>
-    <button class="button" onclick="clickButton(event,'characters')">Characters</button>
-    <button class="button" onclick="clickButton(event,'world')">World</button>
-    <button class="button" onclick="clickButton(event,'upcoming')">Upcoming Content</button>
-    <button class="button" onclick="clickButton(event,'settings')">Settings</button>
-  </div>
-
-  <div id="story" class="page">
-    <h1>Story</h1>
-    <p>This is the story of Hollow Spire...</p>
-    <button class="button back" onclick="clickButton(event,'menu')">Back</button>
-  </div>
-
-  <div id="characters" class="page">
-    <h1>Characters</h1>
-    <p>Meet the characters of Hollow Spire...</p>
-    <button class="button back" onclick="clickButton(event,'menu')">Back</button>
-  </div>
-
-  <div id="world" class="page">
-    <h1>World</h1>
-    <p>Explore the vast world of Hollow Spire...</p>
-    <button class="button back" onclick="clickButton(event,'menu')">Back</button>
-  </div>
-
-  <div id="upcoming" class="page">
-    <h1>Upcoming Content</h1>
-    <p>Discover what's coming next in Hollow Spire...</p>
-    <button class="button back" onclick="clickButton(event,'menu')">Back</button>
-  </div>
-
-  <div id="settings" class="page">
-    <h1>Settings & Rules</h1>
-    <button class="button" onclick="clickButton(event,'privacy')">Privacy Policy</button>
-    <button class="button" onclick="clickButton(event,'terms')">Terms & Conditions</button>
-    <button class="button" onclick="clickButton(event,'community')">Community Rules</button>
-    <button class="button" onclick="clickButton(event,'sharing')">Sharing Rules</button>
-    <button class="button back" onclick="clickButton(event,'menu')">Back</button>
-  </div>
-
-  <div id="privacy" class="page"><h1>Privacy Policy</h1><p>Your privacy is important. We collect minimal data...</p><button class="button back" onclick="clickButton(event,'settings')">Back</button></div>
-  <div id="terms" class="page"><h1>Terms & Conditions</h1><p>By using this site, you agree to our terms...</p><button class="button back" onclick="clickButton(event,'settings')">Back</button></div>
-  <div id="community" class="page"><h1>Community Rules</h1><p>Be respectful. No harassment or spam...</p><button class="button back" onclick="clickButton(event,'settings')">Back</button></div>
-  <div id="sharing" class="page"><h1>Sharing Rules</h1><p>Do not share private information or content...</p><button class="button back" onclick="clickButton(event,'settings')">Back</button></div>
+  <h1>Main Menu</h1>
+  <button class="button" onclick="location.href='backrooms.html'">Backroom Explorers</button>
+  <button class="button" onclick="location.href='hollowspire.html'">Hollow Spire</button>
 </div>
 
 <script>
-const themeSelect = document.getElementById('theme');
-themeSelect.addEventListener('change', () => {
-  if(themeSelect.value==='light') document.body.classList.add('light');
-  else document.body.classList.remove('light');
-});
-
-function clickButton(e,pageId){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(pageId).classList.add('active');
-}
-
 let particles=[];
 function createParticle(x,y){
   const p=document.createElement('div');
   p.className='particle';
   p.style.left=x+'px';
   p.style.top=y+'px';
-  const size=4+Math.random()*6;
+  const size=2+Math.random()*4;
   p.style.width=p.style.height=size+'px';
   document.body.appendChild(p);
   particles.push(p);
-  setTimeout(()=>{ p.remove(); particles=particles.filter(x=>x!==p); },1000+Math.random()*1000);
+  setTimeout(()=>{ p.remove(); particles=particles.filter(x=>x!==p); },1500);
 }
 setInterval(()=>{ createParticle(Math.random()*window.innerWidth, Math.random()*window.innerHeight); },120);
 
-for(let i=0;i<12;i++){
-  const cube=document.createElement('div');
-  cube.className='cube';
-  cube.style.left=Math.random()*100+'vw';
-  cube.style.top=Math.random()*100+'vh';
-  const size=15+Math.random()*20;
-  cube.style.width=cube.style.height=size+'px';
-  cube.style.animationDuration=(6+Math.random()*6)+'s';
-  document.body.appendChild(cube);
+// floating retro shapes
+for(let i=0;i<6;i++){
+  const sq=document.createElement('div');
+  sq.className='square';
+  sq.style.left=Math.random()*100+'vw';
+  sq.style.top=Math.random()*100+'vh';
+  sq.style.animationDuration=(6+Math.random()*6)+'s';
+  document.body.appendChild(sq);
 }
 
-const symbols=['✦','✧','⚝','✵','✹','❂'];
-for(let i=0;i<18;i++){
-  const rune=document.createElement('div');
-  rune.className='rune';
-  rune.innerText=symbols[Math.floor(Math.random()*symbols.length)];
-  rune.style.left=Math.random()*90+'vw';
-  rune.style.bottom=Math.random()*50+'px';
-  document.body.appendChild(rune);
+for(let i=0;i<6;i++){
+  const tri=document.createElement('div');
+  tri.className='triangle';
+  tri.style.left=Math.random()*100+'vw';
+  tri.style.top=Math.random()*100+'vh';
+  tri.style.animationDuration=(5+Math.random()*7)+'s';
+  document.body.appendChild(tri);
 }
-
-document.addEventListener('mousemove', e=>{
-  const moveX=(e.clientX/window.innerWidth-0.5)*10;
-  const moveY=(e.clientY/window.innerHeight-0.5)*10;
-  document.querySelector('.container').style.transform=`translate(${moveX}px,${moveY}px)`;
-});
-</script>
-  <script>
-(function(){
-  document.addEventListener('contextmenu', function(e){ e.preventDefault(); }, true);
-  document.addEventListener('keydown', function(e){
-    var k = (e.key || '').toLowerCase();
-    var blocked = e.keyCode === 123 || (e.ctrlKey && k === 'u') || (e.ctrlKey && e.shiftKey && (k === 'i' || k === 'j' || k === 'c'));
-    if (blocked){
-      e.preventDefault();
-      e.stopPropagation();
-      if (document.getElementById('ncg-block-modal')) return;
-      var overlay = document.createElement('div');
-      overlay.id = 'ncg-block-modal';
-      overlay.tabIndex = -1;
-      overlay.style.position = 'fixed';
-      overlay.style.inset = '0';
-      overlay.style.display = 'flex';
-      overlay.style.alignItems = 'center';
-      overlay.style.justifyContent = 'center';
-      overlay.style.background = 'rgba(0,0,0,0.45)';
-      overlay.style.zIndex = '99999';
-      overlay.style.backdropFilter = 'blur(2px)';
-      var win = document.createElement('div');
-      win.style.width = 'min(420px,92%)';
-      win.style.maxWidth = '420px';
-      win.style.borderRadius = '12px';
-      win.style.background = 'var(--modal-bg, #fff)';
-      win.style.color = 'var(--text, #000)';
-      win.style.boxShadow = '0 18px 40px rgba(0,0,0,0.35)';
-      win.style.padding = '18px';
-      win.style.display = 'flex';
-      win.style.flexDirection = 'column';
-      win.style.gap = '12px';
-      win.style.fontFamily = 'Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial';
-      var title = document.createElement('div');
-      title.style.fontSize = '18px';
-      title.style.fontWeight = '700';
-      title.textContent = 'Hey You can\'t inspect here';
-      var msg = document.createElement('div');
-      msg.style.fontSize = '13px';
-      msg.style.color = 'var(--footer, #666)';
-      msg.style.lineHeight = '1.3';
-      msg.textContent = 'This Page Blocks Hacking And Stealing.';
-      var filler = document.createElement('div');
-      filler.style.flex = '1';
-      var closeWrap = document.createElement('div');
-      closeWrap.style.display = 'flex';
-      closeWrap.style.justifyContent = 'center';
-      var closeBtn = document.createElement('button');
-      closeBtn.textContent = 'Close';
-      closeBtn.style.padding = '10px 16px';
-      closeBtn.style.border = 'none';
-      closeBtn.style.borderRadius = '8px';
-      closeBtn.style.cursor = 'pointer';
-      closeBtn.style.background = 'var(--button-bg, #e0e0e0)';
-      closeBtn.style.color = 'var(--text, #000)';
-      closeBtn.style.fontSize = '14px';
-      closeBtn.addEventListener('click', function(){
-        try { document.body.removeChild(overlay); } catch(e){}
-      });
-      closeWrap.appendChild(closeBtn);
-      win.appendChild(title);
-      win.appendChild(msg);
-      win.appendChild(filler);
-      win.appendChild(closeWrap);
-      overlay.appendChild(win);
-      overlay.addEventListener('click', function(ev){
-        if (ev.target === overlay) {
-          try { document.body.removeChild(overlay); } catch(e){}
-        }
-      });
-      document.body.appendChild(overlay);
-      closeBtn.focus();
-    }
-  }, true);
-})();
 </script>
 </body>
 </html>
