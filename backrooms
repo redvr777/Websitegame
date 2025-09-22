@@ -1,1 +1,12 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Backrooms</title>
+</head>
+<body style="background:#fdf589; font-family:'Press Start 2P', monospace; color:#111;">
+  <h1>You are in the Backrooms...</h1>
+  <p>This is the Backrooms page.</p>
+  <a href="/">⬅ Back to Menu</a>
+</body>
+</html>
