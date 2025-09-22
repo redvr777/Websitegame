@@ -1,1 +1,15 @@
-
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/hollowspire",
+      "destination": "/hollowspire.html",
+      "permanent": false
+    },
+    {
+      "source": "/backrooms",
+      "destination": "/backrooms.html",
+      "permanent": false
+    }
+  ]
+}
