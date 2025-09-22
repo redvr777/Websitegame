@@ -2,165 +2,114 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Main Menu - Retro</title>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+<title>Hollow Spire</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg-dark: #0d0024;
-  --neon-pink: #ff2d95;
-  --neon-blue: #00faff;
-  --neon-purple: #9d4dff;
-  --text-light: #e0e0e0;
-}
+  :root {
+    --bg-dark: #0b0b0b;
+    --accent: #00ffea;
+    --accent2: #ff0077;
+  }
 
-body {
-  margin: 0;
-  font-family: 'Montserrat', sans-serif;
-  background: linear-gradient(-45deg, #0d0024, #120038, #1a003f, #0d0024);
-  background-size: 400% 400%;
-  color: var(--text-light);
-  animation: gradientBG 15s ease infinite;
-  overflow: hidden;
-}
+  body {
+    margin: 0;
+    font-family: 'Press Start 2P', monospace;
+    background: radial-gradient(circle at center, #111 0%, #000 100%);
+    color: var(--accent);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    perspective: 1000px;
+  }
 
-@keyframes gradientBG {
-  0% {background-position: 0% 50%;}
-  50% {background-position: 100% 50%;}
-  100% {background-position: 0% 50%;}
-}
+  .container {
+    text-align: center;
+    transform-style: preserve-3d;
+    transition: transform 0.1s;
+  }
 
-.container {
-  width: 90%;
-  max-width: 700px;
-  margin: 100px auto;
-  padding: 60px 50px;
-  border-radius: 20px;
-  background: rgba(20,10,40,0.7);
-  box-shadow: 0 0 25px rgba(255,45,149,0.5), 0 0 40px rgba(0,250,255,0.3);
-  text-align: center;
-  border: 2px solid var(--neon-purple);
-}
+  h1 {
+    font-size: 3rem;
+    color: var(--accent2);
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px #00ffea, -2px -2px #ff0077;
+    animation: flicker 2s infinite;
+  }
 
-h1 {
-  font-family: 'Press Start 2P', cursive;
-  font-size: 2.5em;
-  color: var(--neon-blue);
-  text-shadow: 0 0 5px var(--neon-blue), 0 0 15px var(--neon-pink), 0 0 30px var(--neon-purple);
-  margin-bottom: 40px;
-  animation: flicker 2s infinite alternate;
-}
-@keyframes flicker {
-  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
-  20%, 24%, 55% { opacity: 0.7; }
-}
+  .btn {
+    display: block;
+    margin: 20px auto;
+    padding: 15px 30px;
+    border: 3px solid var(--accent);
+    color: var(--accent);
+    font-size: 1rem;
+    text-decoration: none;
+    background: transparent;
+    cursor: pointer;
+    text-shadow: 1px 1px #ff0077;
+    transition: background 0.2s, color 0.2s, transform 0.1s;
+    animation: glitch 3s infinite;
+  }
 
-.button {
-  display: block;
-  margin: 20px auto;
-  padding: 18px 30px;
-  font-size: 1.2em;
-  font-weight: 700;
-  border-radius: 12px;
-  border: 2px solid var(--neon-pink);
-  cursor: pointer;
-  background: rgba(20,20,40,0.8);
-  color: var(--text-light);
-  box-shadow: 0 0 15px var(--neon-pink), 0 0 25px var(--neon-purple);
-  width: 280px;
-  text-align: center;
-  transition: all 0.3s ease;
-  font-family: 'Press Start 2P', cursive;
-}
-.button:hover {
-  transform: scale(1.1);
-  background: linear-gradient(135deg, var(--neon-blue), var(--neon-pink));
-  color: black;
-  text-shadow: none;
-  box-shadow: 0 0 20px var(--neon-blue), 0 0 35px var(--neon-pink);
-}
+  .btn:hover {
+    background: var(--accent);
+    color: #000;
+    transform: scale(1.1);
+  }
 
-/* particles, neon shapes */
-.particle { 
-  position: absolute; 
-  width: 6px; 
-  height: 6px; 
-  background: rgba(255,255,255,0.8); 
-  border-radius: 50%; 
-  pointer-events: none; 
-  filter: blur(1px);
-}
+  /* Flicker effect for title */
+  @keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+      opacity: 1;
+    }
+    20%, 24%, 55% {
+      opacity: 0.6;
+    }
+  }
 
-.square {
-  position: fixed; 
-  width: 25px; 
-  height: 25px; 
-  border: 2px solid var(--neon-pink); 
-  opacity: 0.6; 
-  animation: floatSquare 10s infinite ease-in-out;
-}
-@keyframes floatSquare {
-  0% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-150px) rotate(180deg); }
-  100% { transform: translateY(0) rotate(360deg); }
-}
-
-.triangle {
-  position: fixed; 
-  width: 0; 
-  height: 0; 
-  border-left: 15px solid transparent;
-  border-right: 15px solid transparent;
-  border-bottom: 30px solid var(--neon-blue);
-  opacity: 0.6;
-  animation: floatTri 8s infinite ease-in-out;
-}
-@keyframes floatTri {
-  0% { transform: translateX(0) rotate(0deg); }
-  50% { transform: translateX(100px) rotate(180deg); }
-  100% { transform: translateX(0) rotate(360deg); }
-}
+  /* Random glitch for buttons */
+  @keyframes glitch {
+    0% { text-shadow: 2px 0 var(--accent2), -2px 0 var(--accent); }
+    20% { text-shadow: -2px -2px var(--accent2), 2px 2px var(--accent); }
+    40% { text-shadow: 2px -2px var(--accent2), -2px 2px var(--accent); }
+    60% { text-shadow: -3px 1px var(--accent2), 3px -1px var(--accent); }
+    80% { text-shadow: 1px 3px var(--accent2), -1px -3px var(--accent); }
+    100% { text-shadow: 2px 0 var(--accent2), -2px 0 var(--accent); }
+  }
 </style>
 </head>
 <body>
-<div class="container">
-  <h1>Main Menu</h1>
-  <button class="button" onclick="location.href='backrooms.html'">Backroom Explorers</button>
-  <button class="button" onclick="location.href='hollowspire.html'">Hollow Spire</button>
-</div>
+  <div class="container">
+    <h1>HOLLOW SPIRE</h1>
+    <a href="#" class="btn">Start Game</a>
+    <a href="#" class="btn">Options</a>
+    <a href="#" class="btn">Exit</a>
+  </div>
 
 <script>
-let particles=[];
-function createParticle(x,y){
-  const p=document.createElement('div');
-  p.className='particle';
-  p.style.left=x+'px';
-  p.style.top=y+'px';
-  const size=2+Math.random()*4;
-  p.style.width=p.style.height=size+'px';
-  document.body.appendChild(p);
-  particles.push(p);
-  setTimeout(()=>{ p.remove(); particles=particles.filter(x=>x!==p); },1500);
-}
-setInterval(()=>{ createParticle(Math.random()*window.innerWidth, Math.random()*window.innerHeight); },120);
+  // Mouse parallax
+  const container = document.querySelector('.container');
+  document.addEventListener('mousemove', (e) => {
+    let x = (window.innerWidth / 2 - e.pageX) / 50;
+    let y = (window.innerHeight / 2 - e.pageY) / 50;
+    container.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+  });
 
-// floating retro shapes
-for(let i=0;i<6;i++){
-  const sq=document.createElement('div');
-  sq.className='square';
-  sq.style.left=Math.random()*100+'vw';
-  sq.style.top=Math.random()*100+'vh';
-  sq.style.animationDuration=(6+Math.random()*6)+'s';
-  document.body.appendChild(sq);
-}
-
-for(let i=0;i<6;i++){
-  const tri=document.createElement('div');
-  tri.className='triangle';
-  tri.style.left=Math.random()*100+'vw';
-  tri.style.top=Math.random()*100+'vh';
-  tri.style.animationDuration=(5+Math.random()*7)+'s';
-  document.body.appendChild(tri);
-}
+  // Random flicker for buttons
+  function randomFlicker() {
+    document.querySelectorAll('.btn, h1').forEach(el => {
+      if (Math.random() > 0.7) {
+        el.style.opacity = Math.random() > 0.5 ? "0.8" : "1";
+        el.style.transform = `translate(${(Math.random()-0.5)*4}px, ${(Math.random()-0.5)*4}px)`;
+      } else {
+        el.style.opacity = "1";
+        el.style.transform = "translate(0,0)";
+      }
+    });
+  }
+  setInterval(randomFlicker, 150);
 </script>
 </body>
 </html>
