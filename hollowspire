@@ -1,1 +1,12 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hollow Spire</title>
+</head>
+<body style="background:#222; font-family:'MedievalSharp', cursive; color:#ffdca8;">
+  <h1>Welcome to Hollow Spire</h1>
+  <p>This is the Hollow Spire page.</p>
+  <a href="/">⬅ Back to Menu</a>
+</body>
+</html>
