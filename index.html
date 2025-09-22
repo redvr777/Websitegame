@@ -78,10 +78,6 @@
     border-radius: 12px;
     text-decoration: none;
     transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
-  }
-
-  .btn-fusion {
-    font-family: 'Press Start 2P', monospace;
     border: 3px solid #b58350;
     background: linear-gradient(
       90deg,
@@ -90,12 +86,20 @@
       var(--backrooms1) 60%,
       var(--backrooms2) 100%
     );
-    color: #ffdca8;
-    text-shadow: 0 0 8px rgba(255,220,168,0.8);
     box-shadow: 0 0 15px rgba(255,220,120,0.4), inset 0 0 10px rgba(0,0,0,0.4);
+    overflow: hidden;
+    position: relative;
   }
 
-  .btn-fusion:hover {
+  .btn span {
+    background: linear-gradient(to right, #ffdca8 50%, #111 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    text-shadow: 0 0 8px rgba(0,0,0,0.4);
+  }
+
+  .btn:hover {
     transform: scale(1.08);
     background: linear-gradient(
       90deg,
@@ -104,9 +108,13 @@
       #e6e068 60%,
       #fdf589 100%
     );
-    color: #111;
-    text-shadow: 0 0 6px rgba(255,255,200,0.8);
     box-shadow: 0 0 20px rgba(255,255,180,0.7), inset 0 0 12px rgba(0,0,0,0.6);
+  }
+
+  .btn:hover span {
+    background: linear-gradient(to right, #fff 50%, #000 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   /* Flicker animation */
@@ -121,8 +129,8 @@
 
   <div class="container">
     <h1>MAIN MENU</h1>
-    <a href="/hollowspire" class="btn btn-fusion">HOLLOW SPIRE</a>
-    <a href="/backrooms" class="btn btn-fusion">BACKROOMS</a>
+    <a href="/hollowspire" class="btn"><span>HOLLOW SPIRE</span></a>
+    <a href="/backrooms" class="btn"><span>BACKROOMS</span></a>
   </div>
 
 <script>
