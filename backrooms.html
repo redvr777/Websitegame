@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Backrooms</title>
+  <title>Backroom Explorers</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
     body {
@@ -14,6 +14,29 @@
       overflow: hidden;
       text-align: center;
       transition: transform 0.15s ease-out;
+      position: relative;
+    }
+
+    /* Corridor stripes for subtle movement */
+    #corridor {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(255,255,200,0.05),
+        rgba(255,255,200,0.05) 2px,
+        rgba(255,255,200,0.02) 4px
+      );
+      animation: corridorMove 15s linear infinite;
+      z-index: -2;
+    }
+
+    @keyframes corridorMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 50px; }
     }
 
     h1 {
@@ -24,14 +47,14 @@
 
     p {
       font-size: 1.1rem;
-      max-width: 700px;
+      max-width: 750px;
       margin: 20px auto;
       line-height: 1.6;
       background: rgba(255,255,200,0.15);
       padding: 15px 20px;
       border: 2px solid #c9c255;
       border-radius: 10px;
-      box-shadow: 0 0 8px rgba(200,200,150,0.3);
+      box-shadow: 0 0 10px rgba(200,200,150,0.3);
       text-align: left;
     }
 
@@ -51,7 +74,7 @@
     a.back:hover {
       background: #c9c255;
       color: #000;
-      box-shadow: 0 0 12px #fff;
+      box-shadow: 0 0 15px #fff;
     }
 
     #particles {
@@ -65,16 +88,17 @@
   </style>
 </head>
 <body>
+  <div id="corridor"></div>
   <canvas id="particles"></canvas>
 
-  <h1>You are in the Backrooms...</h1>
+  <h1>Backroom Explorers</h1>
   <p>
-    This is currently just an idea — not a real game yet.  
-    But if it comes to life, it will be a <b>hyper-realistic multiplayer experience</b> where you and your friends wander through endless, buzzing fluorescent hallways.  
+    This is an experimental concept — not yet a real game.  
+    If developed, it would be a <b>hyper-realistic multiplayer Backrooms</b> adventure for you and your friends.  
     <br><br>
-    The corridors twist and repeat endlessly, the lights flicker unpredictably, and faint, unplaceable noises echo from unseen rooms. Every corner hides subtle anomalies — warped walls, strange furniture, and doors that lead nowhere.  
+    Navigate endless fluorescent hallways, flickering lights, warped doors, and subtle anomalies. Strange sounds echo from unseen corners, and the walls themselves seem to shift as you explore.  
     <br><br>
-    Survive, explore, and uncover secrets — if you dare.
+    Survival, curiosity, and caution are your only guides. Dare to explore the unknown and uncover the mysteries hidden in the Backrooms.
   </p>
 
   <a href="/" class="back">⬅ Back to Menu</a>
@@ -104,7 +128,6 @@
         this.x += this.speedX;
         this.y += this.speedY;
 
-        // occasional glitch jump
         if (Math.random() < 0.002) {
           this.x = Math.random() * canvas.width;
           this.y = Math.random() * canvas.height;
@@ -115,7 +138,6 @@
         if (this.y < 0) this.y = canvas.height;
         if (this.y > canvas.height) this.y = 0;
 
-        // flicker opacity
         this.opacity += (Math.random() - 0.5) * 0.05;
         if(this.opacity < 0.1) this.opacity = 0.1;
         if(this.opacity > 0.9) this.opacity = 0.9;
@@ -133,7 +155,7 @@
 
     function initParticles() {
       particles = [];
-      for (let i = 0; i < 150; i++) {
+      for (let i = 0; i < 250; i++) { // more particles
         particles.push(new Particle());
       }
     }
