@@ -3,10 +3,145 @@
 <head>
   <meta charset="UTF-8">
   <title>Backrooms</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: 'Press Start 2P', monospace;
+      background: linear-gradient(120deg, #fdf589 0%, #e6e068 100%);
+      color: #111;
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.15s ease-out;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-top: 50px;
+      text-shadow: 2px 2px #e6e068, -2px -2px #fdf589;
+    }
+
+    p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 20px auto;
+      line-height: 1.6;
+      background: rgba(255,255,200,0.2);
+      padding: 15px 20px;
+      border: 2px solid #c9c255;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(200,200,150,0.4);
+    }
+
+    a.back {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 10px 20px;
+      background: rgba(250,250,180,0.6);
+      border: 2px solid #c9c255;
+      color: #111;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 5px #fff;
+    }
+
+    a.back:hover {
+      background: #c9c255;
+      color: #000;
+      box-shadow: 0 0 12px #fff;
+    }
+
+    /* Particle canvas */
+    #particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+  </style>
 </head>
-<body style="background:#fdf589; font-family:'Press Start 2P', monospace; color:#111;">
+<body>
+  <canvas id="particles"></canvas>
+
   <h1>You are in the Backrooms...</h1>
-  <p>This is the Backrooms page.</p>
-  <a href="/">⬅ Back to Menu</a>
+  <p>
+    This is only an idea at the moment — not a real development right now.  
+    But if it becomes reality, it will be a <b>hyper-realistic multiplayer Backrooms game</b>  
+    where you and your friends can explore endless halls, flickering lights, and strange anomalies together.  
+    Tread carefully, for the Backrooms hold mysteries and dangers beyond imagination.
+  </p>
+
+  <a href="/" class="back">⬅ Back to Menu</a>
+
+  <script>
+    // Particles (glitchy yellowish sparks)
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = (Math.random() - 0.5) * 0.5;
+        this.speedY = (Math.random() - 0.5) * 0.5;
+        this.opacity = Math.random() * 0.7 + 0.2;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.y < 0) this.y = canvas.height;
+        if (this.y > canvas.height) this.y = 0;
+      }
+      draw() {
+        ctx.fillStyle = `rgba(200,200,150,${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particles = [];
+      for (let i = 0; i < 120; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateParticles);
+    }
+
+    initParticles();
+    animateParticles();
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initParticles();
+    });
+
+    // Parallax screen movement with mouse
+    document.addEventListener("mousemove", e => {
+      let moveX = (e.clientX / window.innerWidth - 0.5) * 20;
+      let moveY = (e.clientY / window.innerHeight - 0.5) * 20;
+      document.body.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    });
+  </script>
 </body>
 </html>
