@@ -3,10 +3,140 @@
 <head>
   <meta charset="UTF-8">
   <title>Hollow Spire</title>
+  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: radial-gradient(circle at top, #1a1a1a 0%, #0b0b0b 100%);
+      color: #f8e4b0;
+      font-family: 'MedievalSharp', cursive;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: 'UnifrakturCook', cursive;
+      font-size: 3rem;
+      margin-top: 50px;
+      color: #ffdca8;
+      text-shadow: 0 0 12px #b58350, 0 0 25px #e6b873;
+    }
+
+    p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 20px auto;
+      line-height: 1.6;
+      background: rgba(20, 10, 0, 0.5);
+      padding: 15px 20px;
+      border: 2px solid #b58350;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(181, 131, 80, 0.4);
+    }
+
+    a.back {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 10px 20px;
+      background: rgba(50, 25, 0, 0.8);
+      border: 2px solid #b58350;
+      color: #ffdca8;
+      text-decoration: none;
+      font-family: 'MedievalSharp', cursive;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 8px #000;
+    }
+
+    a.back:hover {
+      background: #b58350;
+      color: #111;
+      box-shadow: 0 0 15px #e6b873;
+    }
+
+    /* Particle canvas */
+    #particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+  </style>
 </head>
-<body style="background:#222; font-family:'MedievalSharp', cursive; color:#ffdca8;">
-  <h1>Welcome to Hollow Spire</h1>
-  <p>This is the Hollow Spire page.</p>
-  <a href="/">⬅ Back to Menu</a>
+<body>
+  <canvas id="particles"></canvas>
+
+  <h1>⚔ Hollow Spire ⚔</h1>
+  <p>
+    In the forgotten age known as the <b>Collision Era</b>, realms once divided were forced together in a storm of 
+    fire and shadow. From this chaos, the Hollow Spire rose — a monument of both doom and destiny.  
+    <br><br>
+    The legend shall awaken once more with the release of <b>Hollow Spire</b>, expected to arrive in <u>2029</u>.  
+    Prepare thy courage, for the gates of the Spire open only to the bold.
+  </p>
+
+  <a href="/" class="back">⬅ Return to Menu</a>
+
+  <script>
+    // Simple medieval glowing particles (fireflies/embers)
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3 + 1;
+        this.speedY = Math.random() * 0.6 - 0.3;
+        this.speedX = Math.random() * 0.6 - 0.3;
+        this.opacity = Math.random();
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+      }
+      draw() {
+        ctx.fillStyle = "rgba(255, 215, 130," + this.opacity + ")";
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particles = [];
+      for (let i = 0; i < 100; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateParticles);
+    }
+
+    initParticles();
+    animateParticles();
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initParticles();
+    });
+  </script>
 </body>
 </html>
