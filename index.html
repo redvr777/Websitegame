@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+if (DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === 'function') {
+    DeviceMotionEvent.requestPermission()
+        .then(response => {
+            if (response === 'granted') {
+                window.addEventListener('deviceorientation', yourFunction);
+            }
+        });
+}
+
   <script>
 window.addEventListener('deviceorientation', (event) => {
     // event.gamma = left-right tilt (-90 to 90)
