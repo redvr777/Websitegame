@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+window.addEventListener('deviceorientation', (event) => {
+    // event.gamma = left-right tilt (-90 to 90)
+    // event.beta = front-back tilt (-180 to 180)
+    let x = event.gamma; // left/right
+    let y = event.beta;  // front/back
+
+    // Use these values to move your page elements
+    const page = document.body; 
+    page.style.transform = `translate(${x}px, ${y}px)`;
+});
+</script>
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <meta charset="UTF-8">
