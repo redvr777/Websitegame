@@ -84,6 +84,9 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=MedievalSharp&display=swap" rel="stylesheet">
   <style>
+    /* disable selection globally */
+    * { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+
     :root {
       --medieval1: #3e2a15;
       --medieval2: #5a3c1f;
@@ -117,120 +120,123 @@
       align-items: center;
       overflow: hidden;
       position: relative;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    @keyframes bgShift {
-      0% { background-position: left top; }
-      100% { background-position: right bottom; }
-    }
+    @keyframes bgShift { 0% { background-position: left top; } 100% { background-position: right bottom; } }
 
     canvas {
-      position: absolute;
-      top: 0; left: 0;
-      z-index: 0;
-      width: 100%;
-      height: 100%;
-      display: block;
-      pointer-events: none;
+      position: absolute; top: 0; left: 0;
+      z-index: 0; width: 100%; height: 100%; display: block; pointer-events: none;
     }
 
-    .container {
-      text-align: center;
-      position: relative;
-      z-index: 1;
-      transition: transform 0.1s ease-out;
-    }
+    .container { text-align: center; position: relative; z-index: 1; transition: transform 0.1s ease-out; padding: 0 16px; }
 
+    /* Title with fallback */
     h1 {
-      font-size: 2.5rem;
-      margin-bottom: 2rem;
-      font-family: 'MedievalSharp', cursive;
-      background: linear-gradient(to right, #ffdca8 50%, #111 50%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 2px 2px rgba(255,220,168,0.5), -2px -2px rgba(0,0,0,0.4);
+      font-size: 2.5rem; margin-bottom: 2rem; font-family: 'MedievalSharp', cursive;
+      color: var(--title-fallback, #ffdca8);
+      text-shadow: 2px 2px rgba(255,220,168,0.5), -2px -2px rgba(0,0,0,0.35);
       animation: flicker 2s infinite;
+      display: inline-block;
     }
 
-    /* Base button */
+    /* Buttons base */
     .btn {
       display: block;
-      margin: 20px auto;
+      margin: 18px auto;
       padding: 15px 30px;
       font-size: 1rem;
       cursor: pointer;
       border-radius: 12px;
       text-decoration: none;
-      transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+      transition: transform 0.18s, background 0.18s, box-shadow 0.18s;
       overflow: hidden;
       position: relative;
+      color: var(--btn-fallback, #fff); /* fallback color for text */
+      border: 3px solid transparent;
+      min-width: 260px;
+      box-sizing: border-box;
     }
-    .btn span {
-      display: inline-block;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .btn:hover { transform: scale(1.08); }
+    .btn span { display: inline-block; line-height: 1; }
 
-    /* Hollow Spire medieval */
+    .btn:hover { transform: scale(1.06); }
+
+    /* Hollow Spire (medieval) */
     .btn.medieval {
-      border: 3px solid #b58350;
+      --btn-fallback: #ffdca8;
+      border-color: #b58350;
       background: linear-gradient(90deg, #3e2a15 0%, #5a3c1f 40%, #8a6236 100%);
-      box-shadow: 0 0 15px rgba(255,220,120,0.4), inset 0 0 10px rgba(0,0,0,0.5);
+      box-shadow: 0 0 15px rgba(255,220,120,0.35), inset 0 0 8px rgba(0,0,0,0.45);
     }
-    .btn.medieval span {
-      background: linear-gradient(to right, #ffdca8 50%, #111 50%);
-      text-shadow: 0 0 8px rgba(0,0,0,0.5);
-    }
+    .btn.medieval span { background-image: linear-gradient(to right, #ffdca8 50%, #111 50%); }
+
     .btn.medieval:hover {
       background: linear-gradient(90deg, #6a4622 0%, #b58350 100%);
-      box-shadow: 0 0 20px rgba(255,220,150,0.8), inset 0 0 12px rgba(0,0,0,0.6);
+      box-shadow: 0 0 22px rgba(255,220,150,0.8), inset 0 0 12px rgba(0,0,0,0.6);
     }
 
-    /* Backrooms creepy yellow */
+    /* Backrooms (creepy yellow) */
     .btn.backrooms {
-      border: 3px solid #c9c255;
+      --btn-fallback: #222;
+      border-color: #c9c255;
       background: linear-gradient(90deg, #fdf589 0%, #c9c255 100%);
-      box-shadow: 0 0 15px rgba(255,255,120,0.4), inset 0 0 10px rgba(50,50,0,0.6);
+      box-shadow: 0 0 15px rgba(255,255,120,0.35), inset 0 0 8px rgba(50,50,0,0.45);
     }
-    .btn.backrooms span {
-      background: linear-gradient(to right, #ffffb5 50%, #111 50%);
-      text-shadow: 0 0 6px rgba(255,255,180,0.5);
-    }
+    .btn.backrooms span { background-image: linear-gradient(to right, #ffffb5 50%, #111 50%); }
+
     .btn.backrooms:hover {
       background: linear-gradient(90deg, #ffffa0 0%, #d9d960 100%);
-      box-shadow: 0 0 20px rgba(255,255,150,0.9), inset 0 0 12px rgba(60,60,0,0.7);
+      box-shadow: 0 0 22px rgba(255,255,150,0.9), inset 0 0 12px rgba(60,60,0,0.7);
     }
 
     /* Facility (chimps) */
     .btn.facility {
-      border: 3px solid #5a5a5a;
+      --btn-fallback: #8ef1ff;
+      border-color: #5a5a5a;
       background: linear-gradient(90deg, #222 0%, #333 40%, #666 100%);
-      box-shadow: 0 0 15px rgba(120,255,220,0.4), inset 0 0 10px rgba(0,0,0,0.6);
+      box-shadow: 0 0 15px rgba(120,255,220,0.35), inset 0 0 8px rgba(0,0,0,0.45);
     }
-    .btn.facility span {
-      background: linear-gradient(to right, #8ef1ff 50%, #111 50%);
-    }
+    .btn.facility span { background-image: linear-gradient(to right, #8ef1ff 50%, #111 50%); }
+
     .btn.facility:hover {
       background: linear-gradient(90deg, #444 0%, #555 50%, #999 100%);
-      box-shadow: 0 0 22px rgba(150,255,230,0.8), inset 0 0 12px rgba(0,0,0,0.7);
+      box-shadow: 0 0 24px rgba(150,255,230,0.9), inset 0 0 12px rgba(0,0,0,0.7);
     }
 
-    /* Vote cool */
+    /* Vote (cool purple/blue) */
     .btn.vote {
-      border: 3px solid #5a50b5;
+      --btn-fallback: #b0a8ff;
+      border-color: #5a50b5;
       background: linear-gradient(90deg, #3a2a7a 0%, #5a50b5 40%, #a050e6 100%);
-      box-shadow: 0 0 15px rgba(120,100,255,0.5), inset 0 0 10px rgba(0,0,0,0.5);
+      box-shadow: 0 0 15px rgba(120,100,255,0.35), inset 0 0 8px rgba(0,0,0,0.45);
     }
-    .btn.vote span {
-      background: linear-gradient(to right, #b0a8ff 50%, #111 50%);
-    }
+    .btn.vote span { background-image: linear-gradient(to right, #b0a8ff 50%, #111 50%); }
+
     .btn.vote:hover {
       background: linear-gradient(90deg, #6a50e6 0%, #8a70ff 100%);
-      box-shadow: 0 0 20px rgba(160,140,255,0.9), inset 0 0 12px rgba(0,0,0,0.6);
+      box-shadow: 0 0 22px rgba(160,140,255,0.9), inset 0 0 12px rgba(0,0,0,0.6);
     }
 
-    /* Flicker animation */
+    /* If browser supports text-fill/clip — enable gradient text. If not, fallback color remains. */
+    @supports (-webkit-text-fill-color: transparent) {
+      .btn span {
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+      }
+      h1 {
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        background-image: linear-gradient(to right, #ffdca8 42%, #8ef1ff 59%, #a050e6 100%);
+      }
+    }
+
+    /* Flicker */
     @keyframes flicker {
       0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
       20%, 24%, 55% { opacity: 0.7; }
@@ -249,14 +255,14 @@
   </div>
 
 <script>
-  // Parallax effect
+  // Parallax for entire body
   document.addEventListener('mousemove', (e) => {
     const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
     const moveY = (e.clientY / window.innerHeight - 0.5) * 20;
     document.body.style.transform = `translate(${moveX}px, ${moveY}px)`;
   });
 
-  // Random flicker
+  // Random flicker for buttons and title
   function randomFlicker() {
     document.querySelectorAll('.btn, h1').forEach(el => {
       el.style.opacity = Math.random() > 0.8 ? "0.85" : "1";
@@ -264,18 +270,18 @@
   }
   setInterval(randomFlicker, 200);
 
-  // Particle system
+  // Particle system (mixed colors)
   const canvas = document.getElementById('particles');
   const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  function resizeCanvas(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  resizeCanvas();
 
   let particles = [];
   for (let i = 0; i < 140; i++) {
     const type = Math.random();
     let color;
     if (type < 0.35) color = "#ffdca8"; // medieval glow
-    else if (type < 0.65) color = "#c9c255"; // backrooms
+    else if (type < 0.65) color = "#c9c255"; // backrooms yellow
     else if (type < 0.85) color = "#8ef1ff"; // facility cyan
     else color = "#a050e6"; // vote purple
     particles.push({
@@ -297,7 +303,6 @@
       ctx.fill();
       p.x += p.dx;
       p.y += p.dy;
-
       if (p.x < 0) p.x = canvas.width;
       if (p.x > canvas.width) p.x = 0;
       if (p.y < 0) p.y = canvas.height;
@@ -308,8 +313,7 @@
   drawParticles();
 
   window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    resizeCanvas();
   });
 </script>
 </body>
