@@ -89,9 +89,9 @@
       --medieval2: #5a3c1f;
       --backrooms1: #fdf589;
       --backrooms2: #c9c255;
-      --facility1: #1e2a2f;  /* dark steel */
-      --facility2: #3d5f66;  /* teal-gray */
-      --facility3: #8ef1ff;  /* glowing cyan */
+      --facility1: #1e2a2f;
+      --facility2: #3d5f66;
+      --facility3: #8ef1ff;
       --accent-medieval: #ffdca8;
     }
 
@@ -152,7 +152,7 @@
       animation: flicker 2s infinite;
     }
 
-    /* Fusion button */
+    /* Base button */
     .btn {
       display: block;
       margin: 20px auto;
@@ -162,80 +162,72 @@
       border-radius: 12px;
       text-decoration: none;
       transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
-      border: 3px solid #b58350;
-      background: linear-gradient(
-        90deg,
-        var(--medieval1) 0%,
-        var(--medieval2) 40%,
-        var(--backrooms1) 60%,
-        var(--backrooms2) 100%
-      );
-      box-shadow: 0 0 15px rgba(255,220,120,0.4), inset 0 0 10px rgba(0,0,0,0.4);
       overflow: hidden;
       position: relative;
     }
-
     .btn span {
-      background: linear-gradient(to right, #ffdca8 50%, #111 50%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
       display: inline-block;
-      text-shadow: 0 0 8px rgba(0,0,0,0.4);
-    }
-
-    .btn:hover {
-      transform: scale(1.08);
-      background: linear-gradient(
-        90deg,
-        #b58350 0%,
-        #e6b873 40%,
-        #e6e068 60%,
-        #fdf589 100%
-      );
-      box-shadow: 0 0 20px rgba(255,255,180,0.7), inset 0 0 12px rgba(0,0,0,0.6);
-    }
-
-    .btn:hover span {
-      background: linear-gradient(to right, #fff 50%, #000 50%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+    .btn:hover { transform: scale(1.08); }
 
-    /* Facility-themed button */
+    /* Hollow Spire medieval */
+    .btn.medieval {
+      border: 3px solid #b58350;
+      background: linear-gradient(90deg, #3e2a15 0%, #5a3c1f 40%, #8a6236 100%);
+      box-shadow: 0 0 15px rgba(255,220,120,0.4), inset 0 0 10px rgba(0,0,0,0.5);
+    }
+    .btn.medieval span {
+      background: linear-gradient(to right, #ffdca8 50%, #111 50%);
+      text-shadow: 0 0 8px rgba(0,0,0,0.5);
+    }
+    .btn.medieval:hover {
+      background: linear-gradient(90deg, #6a4622 0%, #b58350 100%);
+      box-shadow: 0 0 20px rgba(255,220,150,0.8), inset 0 0 12px rgba(0,0,0,0.6);
+    }
+
+    /* Backrooms creepy yellow */
+    .btn.backrooms {
+      border: 3px solid #c9c255;
+      background: linear-gradient(90deg, #fdf589 0%, #c9c255 100%);
+      box-shadow: 0 0 15px rgba(255,255,120,0.4), inset 0 0 10px rgba(50,50,0,0.6);
+    }
+    .btn.backrooms span {
+      background: linear-gradient(to right, #ffffb5 50%, #111 50%);
+      text-shadow: 0 0 6px rgba(255,255,180,0.5);
+    }
+    .btn.backrooms:hover {
+      background: linear-gradient(90deg, #ffffa0 0%, #d9d960 100%);
+      box-shadow: 0 0 20px rgba(255,255,150,0.9), inset 0 0 12px rgba(60,60,0,0.7);
+    }
+
+    /* Facility (chimps) */
     .btn.facility {
       border: 3px solid #5a5a5a;
-      background: linear-gradient(
-        90deg,
-        #222 0%,
-        #333 40%,
-        #666 60%,
-        #999 100%
-      );
+      background: linear-gradient(90deg, #222 0%, #333 40%, #666 100%);
       box-shadow: 0 0 15px rgba(120,255,220,0.4), inset 0 0 10px rgba(0,0,0,0.6);
     }
-
     .btn.facility span {
       background: linear-gradient(to right, #8ef1ff 50%, #111 50%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
     }
-
     .btn.facility:hover {
-      transform: scale(1.08);
-      background: linear-gradient(
-        90deg,
-        #444 0%,
-        #555 40%,
-        #888 60%,
-        #ccc 100%
-      );
-      box-shadow: 0 0 22px rgba(150,255,230,0.7), inset 0 0 12px rgba(0,0,0,0.7);
+      background: linear-gradient(90deg, #444 0%, #555 50%, #999 100%);
+      box-shadow: 0 0 22px rgba(150,255,230,0.8), inset 0 0 12px rgba(0,0,0,0.7);
     }
 
-    .btn.facility:hover span {
-      background: linear-gradient(to right, #fff 50%, #000 50%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    /* Vote cool */
+    .btn.vote {
+      border: 3px solid #5a50b5;
+      background: linear-gradient(90deg, #3a2a7a 0%, #5a50b5 40%, #a050e6 100%);
+      box-shadow: 0 0 15px rgba(120,100,255,0.5), inset 0 0 10px rgba(0,0,0,0.5);
+    }
+    .btn.vote span {
+      background: linear-gradient(to right, #b0a8ff 50%, #111 50%);
+    }
+    .btn.vote:hover {
+      background: linear-gradient(90deg, #6a50e6 0%, #8a70ff 100%);
+      box-shadow: 0 0 20px rgba(160,140,255,0.9), inset 0 0 12px rgba(0,0,0,0.6);
     }
 
     /* Flicker animation */
@@ -245,27 +237,26 @@
     }
   </style>
 </head>
-  <style> * { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; } </style>
 <body>
   <canvas id="particles"></canvas>
 
   <div class="container">
     <h1>MAIN MENU</h1>
-    <a href="/hollowspire" class="btn"><span>HOLLOW SPIRE</span></a>
-    <a href="/backrooms" class="btn"><span>BACKROOM EXPLORERS</span></a>
+    <a href="/hollowspire" class="btn medieval"><span>HOLLOW SPIRE</span></a>
+    <a href="/backrooms" class="btn backrooms"><span>BACKROOM EXPLORERS</span></a>
     <a href="/chimps" class="btn facility"><span>EXPERIMENTAL CHIMPS</span></a>
-    <a href="/voting.html" class="btn"><span>VOTE NOW</span></a>
+    <a href="/voting.html" class="btn vote"><span>VOTE NOW</span></a>
   </div>
 
 <script>
-  // Parallax for entire body
+  // Parallax effect
   document.addEventListener('mousemove', (e) => {
-    const moveX = (e.clientX / window.innerWidth - 0.5) * 20; // intensity
+    const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
     const moveY = (e.clientY / window.innerHeight - 0.5) * 20;
     document.body.style.transform = `translate(${moveX}px, ${moveY}px)`;
   });
 
-  // Random flicker for buttons and title
+  // Random flicker
   function randomFlicker() {
     document.querySelectorAll('.btn, h1').forEach(el => {
       el.style.opacity = Math.random() > 0.8 ? "0.85" : "1";
@@ -283,9 +274,10 @@
   for (let i = 0; i < 140; i++) {
     const type = Math.random();
     let color;
-    if (type < 0.4) color = "#ffdca8"; // medieval glow
-    else if (type < 0.7) color = "#c9c255"; // backrooms yellow
-    else color = "#8ef1ff"; // facility cyan
+    if (type < 0.35) color = "#ffdca8"; // medieval glow
+    else if (type < 0.65) color = "#c9c255"; // backrooms
+    else if (type < 0.85) color = "#8ef1ff"; // facility cyan
+    else color = "#a050e6"; // vote purple
     particles.push({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
