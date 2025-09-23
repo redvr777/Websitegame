@@ -7,6 +7,11 @@
       "permanent": false
     },
     {
+      "source": "/experimental chimps",
+      "destination": "/ec.html",
+      "permanent": false
+    },
+    {
       "source": "/voting",
       "destination": "/voting.html",
       "permanent": false
