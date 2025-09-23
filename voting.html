@@ -1,1 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Voting</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=MedievalSharp&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --medieval1: #3e2a15;
+    --medieval2: #5a3c1f;
+    --backrooms1: #fdf589;
+    --backrooms2: #c9c255;
+    --accent-medieval: #ffdca8;
+  }
 
+  body {
+    margin: 0;
+    font-family: 'Press Start 2P', monospace;
+    background: linear-gradient(
+      135deg,
+      var(--medieval1) 0%,
+      var(--medieval2) 25%,
+      var(--backrooms1) 75%,
+      var(--backrooms2) 100%
+    );
+    background-size: 200% 200%;
+    animation: bgShift 15s ease-in-out infinite alternate;
+    color: var(--accent-medieval);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  @keyframes bgShift {
+    0% { background-position: left top; }
+    100% { background-position: right bottom; }
+  }
+
+  canvas {
+    position: absolute;
+    top: 0; left: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+  }
+
+  .container {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.1s ease-out;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    font-family: 'MedievalSharp', cursive;
+    background: linear-gradient(to right, #ffdca8 50%, #111 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px rgba(255,220,168,0.5), -2px -2px rgba(0,0,0,0.4);
+    animation: flicker 2s infinite;
+  }
+
+  .btn {
+    display: block;
+    margin: 20px auto;
+    padding: 15px 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+    border: 3px solid #b58350;
+    background: linear-gradient(
+      90deg,
+      var(--medieval1) 0%,
+      var(--medieval2) 40%,
+      var(--backrooms1) 60%,
+      var(--backrooms2) 100%
+    );
+    box-shadow: 0 0 15px rgba(255,220,120,0.4), inset 0 0 10px rgba(0,0,0,0.4);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .btn span {
+    background: linear-gradient(to right, #ffdca8 50%, #111 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    text-shadow: 0 0 8px rgba(0,0,0,0.4);
+  }
+
+  .btn:hover {
+    transform: scale(1.08);
+    background: linear-gradient(
+      90deg,
+      #b58350 0%,
+      #e6b873 40%,
+      #e6e068 60%,
+      #fdf589 100%
+    );
+    box-shadow: 0 0 20px rgba(255,255,180,0.7), inset 0 0 12px rgba(0,0,0,0.6);
+  }
+
+  .btn:hover span {
+    background: linear-gradient(to right, #fff 50%, #000 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  @keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+    20%, 24%, 55% { opacity: 0.7; }
+  }
+</style>
+</head>
+<body>
+  <canvas id="particles"></canvas>
+
+  <div class="container">
+    <h1>VOTING PAGE</h1>
+    <a href="https://example.com/option1" class="btn"><span>OPTION 1</span></a>
+    <a href="https://example.com/option2" class="btn"><span>OPTION 2</span></a>
+  </div>
+
+<script>
+  // Parallax for entire body
+  document.addEventListener('mousemove', (e) => {
+    const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
+    const moveY = (e.clientY / window.innerHeight - 0.5) * 20;
+    document.body.style.transform = `translate(${moveX}px, ${moveY}px)`;
+  });
+
+  // Random flicker
+  function randomFlicker() {
+    document.querySelectorAll('.btn, h1').forEach(el => {
+      el.style.opacity = Math.random() > 0.8 ? "0.85" : "1";
+    });
+  }
+  setInterval(randomFlicker, 200);
+
+  // Particle system
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let particles = [];
+  for (let i = 0; i < 120; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      radius: Math.random() * 2 + 1,
+      dx: (Math.random() - 0.5) * 0.6,
+      dy: (Math.random() - 0.5) * 0.6,
+    });
+  }
+
+  function drawParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.fillStyle = (p.x < canvas.width / 2) ? "#ffdca8" : "#c9c255";
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fill();
+      p.x += p.dx;
+      p.y += p.dy;
+      if (p.x < 0) p.x = canvas.width;
+      if (p.x > canvas.width) p.x = 0;
+      if (p.y < 0) p.y = canvas.height;
+      if (p.y > canvas.height) p.y = 0;
+    });
+    requestAnimationFrame(drawParticles);
+  }
+  drawParticles();
+
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+</script>
+</body>
+</html>
