@@ -1,162 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <meta charset="UTF-8">
-  <title>Backroom Explorers</title>
-  <script>
-(function(){
-  document.addEventListener('contextmenu', function(e){ e.preventDefault(); }, true);
-  document.addEventListener('keydown', function(e){
-    var k = (e.key || '').toLowerCase();
-    var blocked = e.keyCode === 123 || (e.ctrlKey && k === 'u') || (e.ctrlKey && e.shiftKey && (k === 'i' || k === 'j' || k === 'c'));
-    if (blocked){
-      e.preventDefault();
-      e.stopPropagation();
-      if (document.getElementById('ncg-block-modal')) return;
-      var overlay = document.createElement('div');
-      overlay.id = 'ncg-block-modal';
-      overlay.tabIndex = -1;
-      overlay.style.position = 'fixed';
-      overlay.style.inset = '0';
-      overlay.style.display = 'flex';
-      overlay.style.alignItems = 'center';
-      overlay.style.justifyContent = 'center';
-      overlay.style.background = 'rgba(0,0,0,0.45)';
-      overlay.style.zIndex = '99999';
-      overlay.style.backdropFilter = 'blur(2px)';
-      var win = document.createElement('div');
-      win.style.width = '90%';
-      win.style.maxWidth = '420px';
-      win.style.borderRadius = '12px';
-      win.style.background = 'var(--modal-bg, #fff)';
-      win.style.color = 'var(--text, #000)';
-      win.style.boxShadow = '0 18px 40px rgba(0,0,0,0.35)';
-      win.style.padding = '18px';
-      win.style.display = 'flex';
-      win.style.flexDirection = 'column';
-      win.style.gap = '12px';
-      win.style.fontFamily = 'Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial';
-      var title = document.createElement('div');
-      title.style.fontSize = '1rem';
-      title.style.fontWeight = '700';
-      title.textContent = 'Hey You can\'t inspect here';
-      var msg = document.createElement('div');
-      msg.style.fontSize = '0.85rem';
-      msg.style.color = 'var(--footer, #666)';
-      msg.style.lineHeight = '1.3';
-      msg.textContent = 'This Page Blocks Hacking And Stealing.';
-      var filler = document.createElement('div');
-      filler.style.flex = '1';
-      var closeWrap = document.createElement('div');
-      closeWrap.style.display = 'flex';
-      closeWrap.style.justifyContent = 'center';
-      var closeBtn = document.createElement('button');
-      closeBtn.textContent = 'Close';
-      closeBtn.style.padding = '10px 16px';
-      closeBtn.style.border = 'none';
-      closeBtn.style.borderRadius = '8px';
-      closeBtn.style.cursor = 'pointer';
-      closeBtn.style.background = 'var(--button-bg, #e0e0e0)';
-      closeBtn.style.color = 'var(--text, #000)';
-      closeBtn.style.fontSize = '0.9rem';
-      closeBtn.addEventListener('click', function(){
-        try { document.body.removeChild(overlay); } catch(e){}
-      });
-      closeWrap.appendChild(closeBtn);
-      win.appendChild(title);
-      win.appendChild(msg);
-      win.appendChild(filler);
-      win.appendChild(closeWrap);
-      overlay.appendChild(win);
-      overlay.addEventListener('click', function(ev){
-        if (ev.target === overlay) {
-          try { document.body.removeChild(overlay); } catch(e){}
-        }
-      });
-      document.body.appendChild(overlay);
-      closeBtn.focus();
-    }
-  }, true);
-})();
-</script>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <title>Hollow Spire</title>
+  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       height: 100vh;
-      font-family: 'Press Start 2P', monospace;
-      background: linear-gradient(120deg, #fdf589 0%, #f0e87c 30%, #dfe08c 60%, #f9f1a2 100%);
-      color: #111;
-      overflow-x: hidden;
+      background: radial-gradient(circle at top, #1a1a1a 0%, #0b0b0b 100%);
+      color: #f8e4b0;
+      font-family: 'MedievalSharp', cursive;
+      overflow: hidden;
       text-align: center;
-      transition: transform 0.15s ease-out;
-      position: relative;
-    }
-
-    /* Corridor stripes */
-    #corridor {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: repeating-linear-gradient(
-        0deg,
-        rgba(255,255,200,0.05),
-        rgba(255,255,200,0.05) 2px,
-        rgba(255,255,200,0.02) 4px
-      );
-      animation: corridorMove 15s linear infinite;
-      z-index: -2;
-    }
-
-    @keyframes corridorMove {
-      0% { background-position: 0 0; }
-      100% { background-position: 0 50px; }
+      transition: transform 0.15s ease-out; /* smooth parallax */
     }
 
     h1 {
-      font-size: clamp(1.5rem, 5vw, 2.5rem);
-      margin-top: 10vh;
-      text-shadow: 2px 2px #e6e068, -2px -2px #fdf589;
-      padding: 0 10px;
+      font-family: 'UnifrakturCook', cursive;
+      font-size: 3rem;
+      margin-top: 50px;
+      color: #ffdca8;
+      text-shadow: 0 0 12px #b58350, 0 0 25px #e6b873;
     }
 
     p {
-      font-size: clamp(0.75rem, 3vw, 1.1rem);
-      max-width: 90%;
+      font-size: 1.2rem;
+      max-width: 700px;
       margin: 20px auto;
       line-height: 1.6;
-      background: rgba(255,255,200,0.15);
+      background: rgba(20, 10, 0, 0.5);
       padding: 15px 20px;
-      border: 2px solid #c9c255;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(200,200,150,0.3);
-      text-align: left;
+      border: 2px solid #b58350;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(181, 131, 80, 0.4);
     }
 
     a.back {
       display: inline-block;
       margin-top: 30px;
       padding: 10px 20px;
-      background: rgba(250,250,180,0.6);
-      border: 2px solid #c9c255;
-      color: #111;
+      background: rgba(50, 25, 0, 0.8);
+      border: 2px solid #b58350;
+      color: #ffdca8;
       text-decoration: none;
+      font-family: 'MedievalSharp', cursive;
       border-radius: 10px;
       transition: all 0.3s ease;
-      text-shadow: 0 0 5px #fff;
-      font-size: clamp(0.7rem, 3vw, 1rem);
+      text-shadow: 0 0 8px #000;
     }
 
     a.back:hover {
-      background: #c9c255;
-      color: #000;
-      box-shadow: 0 0 15px #fff;
+      background: #b58350;
+      color: #111;
+      box-shadow: 0 0 15px #e6b873;
     }
 
+    /* Particle canvas */
     #particles {
       position: absolute;
       top: 0;
@@ -168,67 +68,46 @@
   </style>
 </head>
 <body>
-  <div id="corridor"></div>
   <canvas id="particles"></canvas>
 
-  <h1>Backroom Explorers</h1>
+  <h1>⚔ Hollow Spire ⚔</h1>
   <p>
-    This is an experimental concept — not yet a real game.  
-    If developed, it would be a <b>hyper-realistic multiplayer Backrooms</b> adventure for you and your friends.  
+    In the forgotten age known as the <b>Collision Era</b>, realms once divided were forced together in a storm of 
+    fire and shadow. From this chaos, the Hollow Spire rose — a monument of both doom and destiny.  
     <br><br>
-    Navigate endless fluorescent hallways, flickering lights, warped doors, and subtle anomalies. Strange sounds echo from unseen corners, and the walls themselves seem to shift as you explore.  
-    <br><br>
-    Survival, curiosity, and caution are your only guides. Dare to explore the unknown and uncover the mysteries hidden in the Backrooms.
+    The legend shall awaken once more with the release of <b>Hollow Spire</b>, expected to arrive in <u>2029</u>.  
+    Prepare thy courage, for the gates of the Spire open only to the bold.
   </p>
 
-  <a href="/" class="back">BACK TO MENU</a>
+  <a href="/" class="back">⬅ Return to Menu</a>
 
   <script>
+    // Particles
     const canvas = document.getElementById("particles");
     const ctx = canvas.getContext("2d");
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
     let particles = [];
 
     class Particle {
-      constructor() { this.reset(); }
-      reset() {
+      constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 1;
-        this.speedX = (Math.random() - 0.5) * 0.5;
-        this.speedY = (Math.random() - 0.5) * 0.5;
-        this.opacity = Math.random() * 0.7 + 0.2;
-        this.colorShift = Math.random();
+        this.size = Math.random() * 3 + 1;
+        this.speedY = Math.random() * 0.6 - 0.3;
+        this.speedX = Math.random() * 0.6 - 0.3;
+        this.opacity = Math.random();
       }
       update() {
         this.x += this.speedX;
         this.y += this.speedY;
 
-        if (Math.random() < 0.002) {
-          this.x = Math.random() * canvas.width;
-          this.y = Math.random() * canvas.height;
-        }
-
-        if (this.x < 0) this.x = canvas.width;
-        if (this.x > canvas.width) this.x = 0;
-        if (this.y < 0) this.y = canvas.height;
-        if (this.y > canvas.height) this.y = 0;
-
-        this.opacity += (Math.random() - 0.5) * 0.05;
-        if(this.opacity < 0.1) this.opacity = 0.1;
-        if(this.opacity > 0.9) this.opacity = 0.9;
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
       }
       draw() {
-        let r = 200 + 55 * this.colorShift;
-        let g = 200 + 55 * this.colorShift;
-        let b = 150;
-        ctx.fillStyle = `rgba(${r},${g},${b},${this.opacity})`;
+        ctx.fillStyle = "rgba(255, 215, 130," + this.opacity + ")";
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -237,14 +116,17 @@
 
     function initParticles() {
       particles = [];
-      for (let i = 0; i < 250; i++) {
+      for (let i = 0; i < 100; i++) {
         particles.push(new Particle());
       }
     }
 
     function animateParticles() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => { p.update(); p.draw(); });
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
       requestAnimationFrame(animateParticles);
     }
 
@@ -252,17 +134,17 @@
     animateParticles();
 
     window.addEventListener("resize", () => {
-      resizeCanvas();
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
       initParticles();
     });
 
-    // Parallax screen movement
+    // Mouse move parallax effect
     document.addEventListener("mousemove", e => {
-      let moveX = (e.clientX / window.innerWidth - 0.5) * 20;
+      let moveX = (e.clientX / window.innerWidth - 0.5) * 20; // intensity
       let moveY = (e.clientY / window.innerHeight - 0.5) * 20;
       document.body.style.transform = `translate(${moveX}px, ${moveY}px)`;
     });
   </script>
-  <style> * { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; } </style>
 </body>
 </html>
