@@ -27,7 +27,7 @@
       overlay.style.zIndex = '99999';
       overlay.style.backdropFilter = 'blur(2px)';
       var win = document.createElement('div');
-      win.style.width = 'min(420px,92%)';
+      win.style.width = '90%';
       win.style.maxWidth = '420px';
       win.style.borderRadius = '12px';
       win.style.background = 'var(--modal-bg, #fff)';
@@ -39,11 +39,11 @@
       win.style.gap = '12px';
       win.style.fontFamily = 'Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial';
       var title = document.createElement('div');
-      title.style.fontSize = '18px';
+      title.style.fontSize = '1rem';
       title.style.fontWeight = '700';
       title.textContent = 'Hey You can\'t inspect here';
       var msg = document.createElement('div');
-      msg.style.fontSize = '13px';
+      msg.style.fontSize = '0.85rem';
       msg.style.color = 'var(--footer, #666)';
       msg.style.lineHeight = '1.3';
       msg.textContent = 'This Page Blocks Hacking And Stealing.';
@@ -60,7 +60,7 @@
       closeBtn.style.cursor = 'pointer';
       closeBtn.style.background = 'var(--button-bg, #e0e0e0)';
       closeBtn.style.color = 'var(--text, #000)';
-      closeBtn.style.fontSize = '14px';
+      closeBtn.style.fontSize = '0.9rem';
       closeBtn.addEventListener('click', function(){
         try { document.body.removeChild(overlay); } catch(e){}
       });
@@ -89,13 +89,13 @@
       font-family: 'Press Start 2P', monospace;
       background: linear-gradient(120deg, #fdf589 0%, #f0e87c 30%, #dfe08c 60%, #f9f1a2 100%);
       color: #111;
-      overflow: hidden;
+      overflow-x: hidden;
       text-align: center;
       transition: transform 0.15s ease-out;
       position: relative;
     }
 
-    /* Corridor stripes for subtle movement */
+    /* Corridor stripes */
     #corridor {
       position: absolute;
       top: 0;
@@ -118,14 +118,15 @@
     }
 
     h1 {
-      font-size: 2.5rem;
-      margin-top: 50px;
+      font-size: clamp(1.5rem, 5vw, 2.5rem);
+      margin-top: 10vh;
       text-shadow: 2px 2px #e6e068, -2px -2px #fdf589;
+      padding: 0 10px;
     }
 
     p {
-      font-size: 1.1rem;
-      max-width: 750px;
+      font-size: clamp(0.75rem, 3vw, 1.1rem);
+      max-width: 90%;
       margin: 20px auto;
       line-height: 1.6;
       background: rgba(255,255,200,0.15);
@@ -147,6 +148,7 @@
       border-radius: 10px;
       transition: all 0.3s ease;
       text-shadow: 0 0 5px #fff;
+      font-size: clamp(0.7rem, 3vw, 1rem);
     }
 
     a.back:hover {
@@ -184,15 +186,17 @@
   <script>
     const canvas = document.getElementById("particles");
     const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
 
     let particles = [];
 
     class Particle {
-      constructor() {
-        this.reset();
-      }
+      constructor() { this.reset(); }
       reset() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
@@ -233,17 +237,14 @@
 
     function initParticles() {
       particles = [];
-      for (let i = 0; i < 250; i++) { // more particles
+      for (let i = 0; i < 250; i++) {
         particles.push(new Particle());
       }
     }
 
     function animateParticles() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => {
-        p.update();
-        p.draw();
-      });
+      particles.forEach(p => { p.update(); p.draw(); });
       requestAnimationFrame(animateParticles);
     }
 
@@ -251,8 +252,7 @@
     animateParticles();
 
     window.addEventListener("resize", () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      resizeCanvas();
       initParticles();
     });
 
