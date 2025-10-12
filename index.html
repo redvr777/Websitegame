@@ -8,7 +8,6 @@
   <style>
     :root{
       --bg-dark:#0a0a0f;
-      --grid-color:rgba(255,255,255,0.05);
       --btn1:linear-gradient(135deg,#ff416c,#ff4b2b);
       --btn2:linear-gradient(135deg,#00c6ff,#0072ff);
       --btn3:linear-gradient(135deg,#f7971e,#ffd200);
@@ -59,6 +58,8 @@
       transition:0.25s;
       box-shadow:0 0 10px rgba(255,255,255,0.2);
       text-transform:uppercase;
+      text-decoration:none;
+      display:inline-block;
     }
     .btn::before{
       content:'';
@@ -78,6 +79,7 @@
     .btn:nth-child(2){background:var(--btn2);}
     .btn:nth-child(3){background:var(--btn3);color:#222;}
     .btn:nth-child(4){background:var(--btn4);}
+
     .grid{
       position:absolute;
       inset:0;
@@ -98,17 +100,32 @@
       from{transform:translateY(0) translateX(0) rotate(0deg)}
       to{transform:translateY(-50px) translateX(30px) rotate(360deg)}
     }
+    /* moving gradient background */
+    .background-gradient{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(-45deg,#ff416c,#ff4b2b,#00c6ff,#0072ff,#f7971e,#ffd200,#11998e,#38ef7d);
+      background-size:400% 400%;
+      animation:gradient 20s ease infinite;
+      z-index:-1;
+    }
+    @keyframes gradient{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
   </style>
 </head>
 <body>
+  <div class="background-gradient"></div>
   <div class="grid"></div>
   <div class="container">
     <h1>Ultimate Game Worlds</h1>
     <div class="buttons">
-      <button class="btn">Hollow Spire</button>
-      <button class="btn">The Endless Rooms</button>
-      <button class="btn">Experimental Chimps</button>
-      <button class="btn">VR Craft</button>
+      <a href="https://example.com/hollowspire" class="btn">Hollow Spire</a>
+      <a href="https://example.com/endlessrooms" class="btn">The Endless Rooms</a>
+      <a href="https://example.com/experimentalchimps" class="btn">Experimental Chimps</a>
+      <a href="https://example.com/vrcraft" class="btn">VR Craft</a>
     </div>
   </div>
 
