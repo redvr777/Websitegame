@@ -3,17 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Game Launcher — Neon Worlds</title>
+  <title>Game Launcher — Stacked Neon Buttons</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg-gradient: linear-gradient(135deg, #1a002b, #000b3d 70%, #002f4b);
-      --btn-gradient1: linear-gradient(135deg, #ff6bcb, #7366ff);
-      --btn-gradient2: linear-gradient(135deg, #36d1dc, #5b86e5);
-      --btn-gradient3: linear-gradient(135deg, #ff9966, #ff5e62);
-      --btn-gradient4: linear-gradient(135deg, #00b09b, #96c93d);
-      --card-bg: rgba(255,255,255,0.05);
-      --glass-border: rgba(255,255,255,0.1);
+      --bg-color: linear-gradient(180deg, #0f0c29, #302b63, #24243e);
+      --btn1: linear-gradient(135deg, #ff416c, #ff4b2b);
+      --btn2: linear-gradient(135deg, #00c6ff, #0072ff);
+      --btn3: linear-gradient(135deg, #f7971e, #ffd200);
+      --btn4: linear-gradient(135deg, #11998e, #38ef7d);
     }
     *{box-sizing:border-box;margin:0;padding:0}
     body{
@@ -21,60 +19,35 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      background: var(--bg-gradient);
+      background: var(--bg-color);
       font-family:'Poppins',sans-serif;
       color:#fff;
       overflow:hidden;
     }
     .container{
-      background:var(--card-bg);
-      backdrop-filter: blur(15px);
-      border:1px solid var(--glass-border);
-      border-radius:20px;
-      padding:40px;
-      width:min(900px,95%);
-      box-shadow:0 0 40px rgba(0,0,0,0.5);
       text-align:center;
-      position:relative;
-      overflow:hidden;
-    }
-    .container::before{
-      content:'';
-      position:absolute;
-      top:-100px;left:-100px;
-      width:300px;height:300px;
-      background:radial-gradient(circle,rgba(255,0,255,0.3),transparent 70%);
-      filter:blur(100px);
-      animation: float 10s infinite ease-in-out alternate;
-    }
-    .container::after{
-      content:'';
-      position:absolute;
-      bottom:-100px;right:-100px;
-      width:300px;height:300px;
-      background:radial-gradient(circle,rgba(0,255,255,0.3),transparent 70%);
-      filter:blur(100px);
-      animation: float 12s infinite ease-in-out alternate-reverse;
-    }
-    @keyframes float{
-      from{transform:translateY(0)}
-      to{transform:translateY(40px)}
+      background:rgba(255,255,255,0.05);
+      backdrop-filter: blur(20px);
+      border-radius:20px;
+      border:1px solid rgba(255,255,255,0.1);
+      padding:50px 30px;
+      width:min(450px,90%);
+      box-shadow:0 0 40px rgba(0,0,0,0.5);
     }
     h1{
-      font-size:2.2em;
+      font-size:2.3em;
       font-weight:800;
-      letter-spacing:2px;
       margin-bottom:30px;
       text-shadow:0 0 15px rgba(255,255,255,0.3);
     }
     .buttons{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      display:flex;
+      flex-direction:column;
       gap:20px;
     }
     .btn{
       position:relative;
-      padding:25px 20px;
+      padding:20px;
       border:none;
       border-radius:14px;
       font-size:1.2em;
@@ -85,25 +58,16 @@
       box-shadow:0 0 20px rgba(255,255,255,0.1);
       overflow:hidden;
     }
-    .btn::before{
-      content:'';
-      position:absolute;
-      top:0;left:0;right:0;bottom:0;
-      opacity:0;
-      background:rgba(255,255,255,0.1);
-      transition:opacity 0.25s;
-    }
-    .btn:hover::before{opacity:1;}
     .btn:hover{
       transform:translateY(-5px) scale(1.03);
-      box-shadow:0 0 25px rgba(255,255,255,0.25);
+      box-shadow:0 0 25px rgba(255,255,255,0.3);
     }
-    .btn:nth-child(1){background:var(--btn-gradient1);}
-    .btn:nth-child(2){background:var(--btn-gradient2);}
-    .btn:nth-child(3){background:var(--btn-gradient3);}
-    .btn:nth-child(4){background:var(--btn-gradient4);}
+    .btn:nth-child(1){background:var(--btn1);}
+    .btn:nth-child(2){background:var(--btn2);}
+    .btn:nth-child(3){background:var(--btn3);color:#222;}
+    .btn:nth-child(4){background:var(--btn4);}
     footer{
-      margin-top:30px;
+      margin-top:40px;
       font-size:0.9em;
       opacity:0.8;
     }
