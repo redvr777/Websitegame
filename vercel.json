@@ -7,18 +7,18 @@
       "permanent": false
     },
     {
-      "source": "/experimental chimps",
-      "destination": "/ec.html",
-      "permanent": false
-    },
-    {
-      "source": "/voting",
-      "destination": "/voting.html",
+      "source": "/experimental-chimps",
+      "destination": "/experimentalchimps.html",
       "permanent": false
     },
     {
       "source": "/backrooms",
-      "destination": "/backrooms.html",
+      "destination": "/endlessrooms.html",
+      "permanent": false
+    },
+    {
+      "source": "/vrcraft",
+      "destination": "/vrcraft.html",
       "permanent": false
     }
   ]
