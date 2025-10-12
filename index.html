@@ -8,6 +8,10 @@
   <style>
     :root{
       --bg-dark:#0a0a0f;
+      --hollowsp-bg:#8B4513; /* medieval brown */
+      --endless-bg:#FFD700; /* yellow/backroom */
+      --experimental-bg:#FF69B4; /* retro pink */
+      --vrcraft-bg:#32CD32; /* green */
       --btn1:linear-gradient(135deg,#ff416c,#ff4b2b);
       --btn2:linear-gradient(135deg,#00c6ff,#0072ff);
       --btn3:linear-gradient(135deg,#f7971e,#ffd200);
@@ -22,6 +26,7 @@
       font-family:'Poppins',sans-serif;
       overflow:hidden;
       background:var(--bg-dark);
+      transition:background 0.5s ease;
     }
     .container{
       text-align:center;
@@ -100,7 +105,6 @@
       from{transform:translateY(0) translateX(0) rotate(0deg)}
       to{transform:translateY(-50px) translateX(30px) rotate(360deg)}
     }
-    /* moving gradient background */
     .background-gradient{
       position:absolute;
       inset:0;
@@ -122,15 +126,14 @@
   <div class="container">
     <h1>Ultimate Game Worlds</h1>
     <div class="buttons">
-      <a href="https://example.com/hollowspire" class="btn">Hollow Spire</a>
-      <a href="https://example.com/endlessrooms" class="btn">The Endless Rooms</a>
-      <a href="https://example.com/experimentalchimps" class="btn">Experimental Chimps</a>
-      <a href="https://example.com/vrcraft" class="btn">VR Craft</a>
+      <a href="https://example.com/hollowspire" class="btn" data-bg="hollowsp-bg">Hollow Spire</a>
+      <a href="https://example.com/endlessrooms" class="btn" data-bg="endless-bg">The Endless Rooms</a>
+      <a href="https://example.com/experimentalchimps" class="btn" data-bg="experimental-bg">Experimental Chimps</a>
+      <a href="https://example.com/vrcraft" class="btn" data-bg="vrcraft-bg">VR Craft</a>
     </div>
   </div>
-
   <script>
-    // create floating particles
+    // floating particles
     for(let i=0;i<20;i++){
       const p = document.createElement('div');
       p.className='particle';
@@ -141,6 +144,18 @@
       p.style.animationDuration=3+Math.random()*5+'s';
       document.body.appendChild(p);
     }
+
+    // change background on hover
+    const buttons = document.querySelectorAll('.btn');
+    buttons.forEach(btn=>{
+      btn.addEventListener('mouseenter',()=>{
+        const bgVar = btn.getAttribute('data-bg');
+        document.body.style.background = `var(--${bgVar})`;
+      });
+      btn.addEventListener('mouseleave',()=>{
+        document.body.style.background = 'var(--bg-dark)';
+      });
+    });
   </script>
 </body>
 </html>
