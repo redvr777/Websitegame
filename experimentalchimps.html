@@ -6,16 +6,186 @@
 <title>Experimental Chimps</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
 <style>
-body{margin:0; font-family:'Orbitron', sans-serif; background:#1ec0ff; color:#000; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; text-align:center;}
-h1{font-size:3rem; text-shadow:0 0 15px #1ec0ff,0 0 30px #0aa6ff;}
-p{max-width:700px; background:rgba(0,30,60,0.4); padding:15px; border-radius:12px; border:2px solid #1ec0ff; box-shadow:0 0 15px rgba(0,166,255,0.3);}
-a.back{margin-top:20px; padding:10px 20px; background:rgba(0,50,80,0.8); border:2px solid #1ec0ff; color:#9fdcff; text-decoration:none; border-radius:10px; transition:0.3s;}
-a.back:hover{background:#1ec0ff; color:#000; box-shadow:0 0 20px #1ec0ff;}
+body {
+  margin:0;
+  font-family:'Orbitron', sans-serif;
+  background:#001f3f;
+  color:#00ffff;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  height:100vh;
+  text-align:center;
+  overflow:hidden;
+  transition: transform 0.15s ease-out;
+}
+
+/* Prevent text selection */
+* {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+h1{
+  font-size:3rem;
+  text-shadow:0 0 15px #1ec0ff,0 0 30px #0aa6ff;
+  margin-bottom:20px;
+}
+p{
+  max-width:700px;
+  background:rgba(0,0,50,0.5);
+  padding:15px;
+  border-radius:12px;
+  border:2px solid #1ec0ff;
+  box-shadow:0 0 15px rgba(30,192,255,0.3);
+}
+a.back{
+  margin-top:20px;
+  padding:10px 20px;
+  background:rgba(0,50,80,0.8);
+  border:2px solid #1ec0ff;
+  color:#9fdcff;
+  text-decoration:none;
+  border-radius:10px;
+  transition:0.3s;
+}
+a.back:hover{
+  background:#1ec0ff;
+  color:#000;
+  box-shadow:0 0 20px #1ec0ff;
+}
+#particles{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:-1;
+}
 </style>
 </head>
 <body>
+<canvas id="particles"></canvas>
 <h1>Experimental Chimps</h1>
 <p>Enter the lab where primates are pushed to extremes. The research is unstable. Are you ready for the experiment?</p>
 <a href="/" class="back">⬅ Return to CBS GAMES</a>
+
+<script>
+// Particle Background
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+let particles=[];
+class Particle{
+  constructor(){
+    this.x=Math.random()*canvas.width;
+    this.y=Math.random()*canvas.height;
+    this.size=Math.random()*2+1;
+    this.speedX=(Math.random()-0.5)*0.6;
+    this.speedY=(Math.random()-0.5)*0.6;
+    this.opacity=Math.random()*0.7+0.2;
+  }
+  update(){
+    this.x+=this.speedX;
+    this.y+=this.speedY;
+    if(this.x<0)this.x=canvas.width;
+    if(this.x>canvas.width)this.x=0;
+    if(this.y<0)this.y=canvas.height;
+    if(this.y>canvas.height)this.y=0;
+  }
+  draw(){
+    ctx.fillStyle=`rgba(30,192,255,${this.opacity})`;
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+    ctx.fill();
+  }
+}
+function initParticles(){particles=[]; for(let i=0;i<150;i++) particles.push(new Particle());}
+function animateParticles(){ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{p.update(); p.draw();}); requestAnimationFrame(animateParticles);}
+initParticles();
+animateParticles();
+window.addEventListener('resize',()=>{canvas.width=window.innerWidth; canvas.height=window.innerHeight; initParticles();});
+
+// Mouse parallax
+document.addEventListener('mousemove',e=>{
+  let moveX=(e.clientX/window.innerWidth-0.5)*20;
+  let moveY=(e.clientY/window.innerHeight-0.5)*20;
+  document.body.style.transform=`translate(${moveX}px,${moveY}px)`;
+});
+</script>
+
+<!-- Anti-inspect + anti-select -->
+<script>
+(function(){
+  document.addEventListener('contextmenu', function(e){ e.preventDefault(); }, true);
+  document.addEventListener('keydown', function(e){
+    var k = (e.key || '').toLowerCase();
+    var blocked = e.keyCode === 123 || (e.ctrlKey && k === 'u') || (e.ctrlKey && e.shiftKey && (k === 'i' || k === 'j' || k === 'c'));
+    if (blocked){
+      e.preventDefault();
+      e.stopPropagation();
+      if (document.getElementById('ncg-block-modal')) return;
+      var overlay = document.createElement('div');
+      overlay.id = 'ncg-block-modal';
+      overlay.tabIndex = -1;
+      overlay.style.position = 'fixed';
+      overlay.style.inset = '0';
+      overlay.style.display = 'flex';
+      overlay.style.alignItems = 'center';
+      overlay.style.justifyContent = 'center';
+      overlay.style.background = 'rgba(0,0,0,0.45)';
+      overlay.style.zIndex = '99999';
+      overlay.style.backdropFilter = 'blur(2px)';
+      var win = document.createElement('div');
+      win.style.width = 'min(420px,92%)';
+      win.style.maxWidth = '420px';
+      win.style.borderRadius = '12px';
+      win.style.background = '#fff';
+      win.style.color = '#000';
+      win.style.boxShadow = '0 18px 40px rgba(0,0,0,0.35)';
+      win.style.padding = '18px';
+      win.style.display = 'flex';
+      win.style.flexDirection = 'column';
+      win.style.gap = '12px';
+      win.style.fontFamily = 'Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial';
+      var title = document.createElement('div');
+      title.style.fontSize = '18px';
+      title.style.fontWeight = '700';
+      title.textContent = 'Hey You can\'t inspect here';
+      var msg = document.createElement('div');
+      msg.style.fontSize = '13px';
+      msg.style.color = '#666';
+      msg.style.lineHeight = '1.3';
+      msg.textContent = 'This Page Blocks Hacking And Stealing.';
+      var filler = document.createElement('div');
+      filler.style.flex = '1';
+      var closeWrap = document.createElement('div');
+      closeWrap.style.display = 'flex';
+      closeWrap.style.justifyContent = 'center';
+      var closeBtn = document.createElement('button');
+      closeBtn.textContent = 'Close';
+      closeBtn.style.padding = '10px 16px';
+      closeBtn.style.border = 'none';
+      closeBtn.style.borderRadius = '8px';
+      closeBtn.style.cursor = 'pointer';
+      closeBtn.style.background = '#e0e0e0';
+      closeBtn.style.color = '#000';
+      closeBtn.style.fontSize = '14px';
+      closeBtn.addEventListener('click', function(){ try { document.body.removeChild(overlay); } catch(e){} });
+      closeWrap.appendChild(closeBtn);
+      win.appendChild(title); win.appendChild(msg); win.appendChild(filler); win.appendChild(closeWrap);
+      overlay.appendChild(win);
+      overlay.addEventListener('click', function(ev){ if (ev.target === overlay) { try { document.body.removeChild(overlay); } catch(e){} } });
+      document.body.appendChild(overlay);
+      closeBtn.focus();
+    }
+  }, true);
+})();
+</script>
+
 </body>
 </html>
