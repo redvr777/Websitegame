@@ -8,12 +8,11 @@
 <style>
 :root{
   --bg-dark:#0a0a0f;
-  --hollowsp-bg:#8B4513; /* medieval brown */
-  --endless-bg:#FFD700;   /* yellow/backroom */
-  --experimental-bg:#1ec0ff; /* retro blue */
-  --vrcraft-bg:#32CD32;   /* green */
+  --hollowsp-bg:#8B4513; 
+  --endless-bg:#FFD700;   
+  --experimental-bg:#1ec0ff; 
+  --vrcraft-bg:#32CD32;   
 }
-
 *{box-sizing:border-box;margin:0;padding:0;}
 body{
   height:100vh;
@@ -25,7 +24,6 @@ body{
   background:var(--bg-dark);
   transition:background 0.5s ease, transform 0.15s ease-out;
 }
-
 .container{
   text-align:center;
   background:rgba(10,10,20,0.7);
@@ -37,20 +35,17 @@ body{
   position:relative;
   overflow:hidden;
 }
-
 h1{
   font-family:'Press Start 2P', monospace;
   font-size:2rem;
   margin-bottom:30px;
   text-shadow:0 0 12px #00ffff, 0 0 24px #ff00ff;
 }
-
 .buttons{
   display:flex;
   flex-direction:column;
   gap:20px;
 }
-
 .btn{
   padding:20px;
   border:none;
@@ -64,60 +59,51 @@ h1{
   transition:0.3s;
   box-shadow:0 0 10px rgba(255,255,255,0.2);
 }
-
 .btn:hover{
   transform:translateY(-5px) scale(1.03);
   box-shadow:0 0 25px rgba(255,255,255,0.7);
 }
-
 .btn1{background:var(--hollowsp-bg);}
 .btn2{background:var(--endless-bg); color:#222;}
-.btn3{background:var(--experimental-bg); color:#000;} /* retro blue */
+.btn3{background:var(--experimental-bg); color:#000;} 
 .btn4{background:var(--vrcraft-bg);}
-
 #particles{
   position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
+  top:0; left:0;
+  width:100%; height:100%;
   z-index:-1;
 }
 </style>
 </head>
 <body>
 <canvas id="particles"></canvas>
-
 <div class="container">
   <h1>CBS GAMES</h1>
   <div class="buttons">
-    <a href="hollowspire.html" class="btn btn1" data-bg="hollowsp-bg">Hollow Spire</a>
-    <a href="endlessrooms.html" class="btn btn2" data-bg="endless-bg">The Endless Rooms</a>
-    <a href="experimentalchimps.html" class="btn btn3" data-bg="experimental-bg">Experimental Chimps</a>
-    <a href="vrcraft.html" class="btn btn4" data-bg="vrcraft-bg">VR Craft</a>
+    <a href="/hollowspire" class="btn btn1" data-bg="hollowsp-bg">Hollow Spire</a>
+    <a href="/backrooms" class="btn btn2" data-bg="endless-bg">The Endless Rooms</a>
+    <a href="/experimental-chimps" class="btn btn3" data-bg="experimental-bg">Experimental Chimps</a>
+    <a href="/vrcraft" class="btn btn4" data-bg="vrcraft-bg">VR Craft</a>
   </div>
 </div>
 
 <script>
 // Particles
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let particles = [];
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+let particles=[];
 class Particle{
   constructor(){
-    this.x = Math.random()*canvas.width;
-    this.y = Math.random()*canvas.height;
-    this.size = Math.random()*3+1;
-    this.speedX = Math.random()*0.6-0.3;
-    this.speedY = Math.random()*0.6-0.3;
-    this.opacity = Math.random();
+    this.x=Math.random()*canvas.width;
+    this.y=Math.random()*canvas.height;
+    this.size=Math.random()*3+1;
+    this.speedX=Math.random()*0.6-0.3;
+    this.speedY=Math.random()*0.6-0.3;
+    this.opacity=Math.random();
   }
   update(){
-    this.x += this.speedX;
-    this.y += this.speedY;
+    this.x+=this.speedX; this.y+=this.speedY;
     if(this.x<0||this.x>canvas.width)this.speedX*=-1;
     if(this.y<0||this.y>canvas.height)this.speedY*=-1;
   }
@@ -128,39 +114,23 @@ class Particle{
     ctx.fill();
   }
 }
-
-function initParticles(){
-  particles = [];
-  for(let i=0;i<150;i++)particles.push(new Particle());
-}
-function animateParticles(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  particles.forEach(p=>{p.update();p.draw();});
-  requestAnimationFrame(animateParticles);
-}
-initParticles();
-animateParticles();
-
-window.addEventListener('resize',()=>{
-  canvas.width=window.innerWidth;
-  canvas.height=window.innerHeight;
-  initParticles();
-});
-
+function initParticles(){particles=[]; for(let i=0;i<150;i++)particles.push(new Particle());}
+function animateParticles(){ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{p.update(); p.draw();}); requestAnimationFrame(animateParticles);}
+initParticles(); animateParticles();
+window.addEventListener('resize',()=>{canvas.width=window.innerWidth; canvas.height=window.innerHeight; initParticles();});
 // Mouse parallax
 document.addEventListener('mousemove',e=>{
-  const moveX = (e.clientX/window.innerWidth-0.5)*20;
-  const moveY = (e.clientY/window.innerHeight-0.5)*20;
+  let moveX=(e.clientX/window.innerWidth-0.5)*20;
+  let moveY=(e.clientY/window.innerHeight-0.5)*20;
   document.body.style.transform=`translate(${moveX}px,${moveY}px)`;
 });
-
 // Hover background change
-const buttons = document.querySelectorAll('.btn');
+const buttons=document.querySelectorAll('.btn');
 buttons.forEach(btn=>{
-  btn.addEventListener('mouseenter',()=>{ 
-    const bgVar = btn.getAttribute('data-bg');
-    if(bgVar==='experimental-bg') document.body.style.background='#1ec0ff';
-    else document.body.style.background=`var(--${bgVar})`;
+  btn.addEventListener('mouseenter',()=>{
+    const bg=btn.getAttribute('data-bg');
+    if(bg==='experimental-bg') document.body.style.background='#1ec0ff';
+    else document.body.style.background=`var(--${bg})`;
   });
   btn.addEventListener('mouseleave',()=>{document.body.style.background='var(--bg-dark)';});
 });
