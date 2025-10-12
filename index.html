@@ -4,223 +4,111 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CBS GAMES</title>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@700&family=MedievalSharp&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg-dark:#0a0a0f;
-  --hollowsp-bg:#8B4513; 
-  --endless-bg:#FFD700;   
-  --experimental-bg:#1ec0ff; 
-  --vrcraft-bg:#32CD32;   
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-body{
+body {
+  margin:0;
+  font-family:'Press Start 2P', monospace;
   height:100vh;
-  font-family:'Press Start 2P', monospace;
-  overflow:hidden;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:var(--bg-dark);
-  transition:background 0.5s ease, transform 0.15s ease-out;
-}
-.container{
-  text-align:center;
-  background:rgba(10,10,20,0.7);
-  border-radius:25px;
-  padding:50px 30px;
-  width:min(500px,90%);
-  backdrop-filter:blur(15px);
-  box-shadow:0 0 50px rgba(0,255,255,0.3);
-  position:relative;
-  overflow:hidden;
-}
-h1{
-  font-family:'Press Start 2P', monospace;
-  font-size:2rem;
-  margin-bottom:30px;
-  text-shadow:0 0 12px #00ffff, 0 0 24px #ff00ff;
-}
-.buttons{
   display:flex;
   flex-direction:column;
-  gap:20px;
-}
-.btn{
-  padding:20px;
-  border:none;
-  border-radius:15px;
-  font-size:1rem;
-  font-weight:700;
-  cursor:pointer;
+  align-items:center;
+  justify-content:center;
+  background:#111;
   color:#fff;
-  text-transform:uppercase;
-  text-decoration:none;
+  overflow:hidden;
+  text-align:center;
+  transition: transform 0.15s ease-out;
+}
+
+/* Prevent text selection */
+* {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+h1{
+  font-size:3rem;
+  margin-bottom:40px;
+  text-shadow:0 0 10px #fff, 0 0 20px #0ff;
+}
+button{
+  display:block;
+  margin:15px auto;
+  padding:15px 30px;
+  font-size:1.2rem;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
   transition:0.3s;
-  box-shadow:0 0 10px rgba(255,255,255,0.2);
+  font-family:'Press Start 2P', monospace;
 }
-.btn:hover{
-  transform:translateY(-5px) scale(1.03);
-  box-shadow:0 0 25px rgba(255,255,255,0.7);
+button:hover{
+  transform: scale(1.1);
 }
-.btn1{background:var(--hollowsp-bg);}
-.btn2{background:var(--endless-bg); color:#222;}
-.btn3{background:var(--experimental-bg); color:#000;} 
-.btn4{background:var(--vrcraft-bg);}
+
+/* Unique button colors */
+#btnHollow{background:#8b4513; color:#fff;}
+#btnBackrooms{background:#f7e03c; color:#111;}
+#btnExperimental{background:#00bfff; color:#fff;}
+#btnVRCraft{background:#228b22; color:#fff;}
+
 #particles{
   position:absolute;
-  top:0; left:0;
-  width:100%; height:100%;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
   z-index:-1;
 }
 </style>
 </head>
 <body>
 <canvas id="particles"></canvas>
-<div class="container">
-  <h1>CBS GAMES</h1>
-  <div class="buttons">
-    <a href="/hollowspire" class="btn btn1" data-bg="hollowsp-bg">Hollow Spire</a>
-    <a href="/backrooms" class="btn btn2" data-bg="endless-bg">The Endless Rooms</a>
-    <a href="/experimental-chimps" class="btn btn3" data-bg="experimental-bg">Experimental Chimps</a>
-    <a href="/vrcraft" class="btn btn4" data-bg="vrcraft-bg">VR Craft</a>
-  </div>
-</div>
+<h1>CBS GAMES</h1>
+
+<button id="btnHollow" onclick="location.href='hollowspire.html'">Hollow Spire</button>
+<button id="btnBackrooms" onclick="location.href='endlessrooms.html'">The Endless Rooms</button>
+<button id="btnExperimental" onclick="location.href='experimentalchimps.html'">Experimental Chimps</button>
+<button id="btnVRCraft" onclick="location.href='vrcraft.html'">VR Craft</button>
 
 <script>
-// Particles
+// Particle background
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
 let particles=[];
 class Particle{
-  constructor(){
-    this.x=Math.random()*canvas.width;
-    this.y=Math.random()*canvas.height;
-    this.size=Math.random()*3+1;
-    this.speedX=Math.random()*0.6-0.3;
-    this.speedY=Math.random()*0.6-0.3;
-    this.opacity=Math.random();
-  }
-  update(){
-    this.x+=this.speedX; this.y+=this.speedY;
-    if(this.x<0||this.x>canvas.width)this.speedX*=-1;
-    if(this.y<0||this.y>canvas.height)this.speedY*=-1;
-  }
-  draw(){
-    ctx.fillStyle=`rgba(255,255,255,${this.opacity})`;
-    ctx.beginPath();
-    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
-    ctx.fill();
-  }
+  constructor(){this.x=Math.random()*canvas.width; this.y=Math.random()*canvas.height; this.size=Math.random()*2+1; this.speedX=(Math.random()-0.5)*0.5; this.speedY=(Math.random()-0.5)*0.5; this.opacity=Math.random()*0.7+0.2;}
+  update(){this.x+=this.speedX; this.y+=this.speedY; if(this.x<0)this.x=canvas.width; if(this.x>canvas.width)this.x=0; if(this.y<0)this.y=canvas.height; if(this.y>canvas.height)this.y=0;}
+  draw(){ctx.fillStyle=`rgba(255,255,255,${this.opacity})`; ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill();}
 }
-function initParticles(){particles=[]; for(let i=0;i<150;i++)particles.push(new Particle());}
+function initParticles(){particles=[]; for(let i=0;i<200;i++) particles.push(new Particle());}
 function animateParticles(){ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{p.update(); p.draw();}); requestAnimationFrame(animateParticles);}
 initParticles(); animateParticles();
 window.addEventListener('resize',()=>{canvas.width=window.innerWidth; canvas.height=window.innerHeight; initParticles();});
+
 // Mouse parallax
 document.addEventListener('mousemove',e=>{
   let moveX=(e.clientX/window.innerWidth-0.5)*20;
   let moveY=(e.clientY/window.innerHeight-0.5)*20;
   document.body.style.transform=`translate(${moveX}px,${moveY}px)`;
 });
-// Hover background change
-const buttons=document.querySelectorAll('.btn');
-buttons.forEach(btn=>{
-  btn.addEventListener('mouseenter',()=>{
-    const bg=btn.getAttribute('data-bg');
-    if(bg==='experimental-bg') document.body.style.background='#1ec0ff';
-    else document.body.style.background=`var(--${bg})`;
-  });
-  btn.addEventListener('mouseleave',()=>{document.body.style.background='var(--bg-dark)';});
-});
-
-</style>
 </script>
-  <script>
+
+<!-- Anti-inspect -->
+<script>
 (function(){
   document.addEventListener('contextmenu', function(e){ e.preventDefault(); }, true);
   document.addEventListener('keydown', function(e){
-    var k = (e.key || '').toLowerCase();
-    var blocked = e.keyCode === 123 || (e.ctrlKey && k === 'u') || (e.ctrlKey && e.shiftKey && (k === 'i' || k === 'j' || k === 'c'));
-    if (blocked){
-      e.preventDefault();
-      e.stopPropagation();
-      if (document.getElementById('ncg-block-modal')) return;
-      var overlay = document.createElement('div');
-      overlay.id = 'ncg-block-modal';
-      overlay.tabIndex = -1;
-      overlay.style.position = 'fixed';
-      overlay.style.inset = '0';
-      overlay.style.display = 'flex';
-      overlay.style.alignItems = 'center';
-      overlay.style.justifyContent = 'center';
-      overlay.style.background = 'rgba(0,0,0,0.45)';
-      overlay.style.zIndex = '99999';
-      overlay.style.backdropFilter = 'blur(2px)';
-      var win = document.createElement('div');
-      win.style.width = 'min(420px,92%)';
-      win.style.maxWidth = '420px';
-      win.style.borderRadius = '12px';
-      win.style.background = 'var(--modal-bg, #fff)';
-      win.style.color = 'var(--text, #000)';
-      win.style.boxShadow = '0 18px 40px rgba(0,0,0,0.35)';
-      win.style.padding = '18px';
-      win.style.display = 'flex';
-      win.style.flexDirection = 'column';
-      win.style.gap = '12px';
-      win.style.fontFamily = 'Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial';
-      var title = document.createElement('div');
-      title.style.fontSize = '18px';
-      title.style.fontWeight = '700';
-      title.textContent = 'Hey You can\'t inspect here';
-      var msg = document.createElement('div');
-      msg.style.fontSize = '13px';
-      msg.style.color = 'var(--footer, #666)';
-      msg.style.lineHeight = '1.3';
-      msg.textContent = 'This Page Blocks Hacking And Stealing.';
-      var filler = document.createElement('div');
-      filler.style.flex = '1';
-      var closeWrap = document.createElement('div');
-      closeWrap.style.display = 'flex';
-      closeWrap.style.justifyContent = 'center';
-      var closeBtn = document.createElement('button');
-      closeBtn.textContent = 'Close';
-      closeBtn.style.padding = '10px 16px';
-      closeBtn.style.border = 'none';
-      closeBtn.style.borderRadius = '8px';
-      closeBtn.style.cursor = 'pointer';
-      closeBtn.style.background = 'var(--button-bg, #e0e0e0)';
-      closeBtn.style.color = 'var(--text, #000)';
-      closeBtn.style.fontSize = '14px';
-      closeBtn.addEventListener('click', function(){
-        try { document.body.removeChild(overlay); } catch(e){}
-      });
-      closeWrap.appendChild(closeBtn);
-      win.appendChild(title);
-      win.appendChild(msg);
-      win.appendChild(filler);
-      win.appendChild(closeWrap);
-      overlay.appendChild(win);
-      overlay.addEventListener('click', function(ev){
-        if (ev.target === overlay) {
-          try { document.body.removeChild(overlay); } catch(e){}
-        }
-      });
-      document.body.appendChild(overlay);
-      closeBtn.focus();
-    }
+    var k=(e.key||'').toLowerCase();
+    var blocked = e.keyCode===123 || (e.ctrlKey && k==='u') || (e.ctrlKey && e.shiftKey && (k==='i'||k==='j'||k==='c'));
+    if(blocked){ e.preventDefault(); e.stopPropagation(); alert("Inspect/DevTools blocked!"); }
   }, true);
 })();
 </script>
-
-<style>
-  * {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-</style>
 </body>
 </html>
