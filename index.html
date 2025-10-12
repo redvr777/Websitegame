@@ -1,320 +1,259 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset="UTF-8">
-  <title>Home</title>
-
-  <script>
-  (function(){
-    document.addEventListener('contextmenu', function(e){ e.preventDefault(); }, true);
-    document.addEventListener('keydown', function(e){
-      var k = (e.key || '').toLowerCase();
-      var blocked = e.keyCode === 123 || (e.ctrlKey && k === 'u') || (e.ctrlKey && e.shiftKey && (k === 'i' || k === 'j' || k === 'c'));
-      if (blocked){
-        e.preventDefault();
-        e.stopPropagation();
-        if (document.getElementById('ncg-block-modal')) return;
-        var overlay = document.createElement('div');
-        overlay.id = 'ncg-block-modal';
-        overlay.tabIndex = -1;
-        overlay.style.position = 'fixed';
-        overlay.style.inset = '0';
-        overlay.style.display = 'flex';
-        overlay.style.alignItems = 'center';
-        overlay.style.justifyContent = 'center';
-        overlay.style.background = 'rgba(0,0,0,0.45)';
-        overlay.style.zIndex = '99999';
-        overlay.style.backdropFilter = 'blur(2px)';
-        var win = document.createElement('div');
-        win.style.width = 'min(420px,92%)';
-        win.style.maxWidth = '420px';
-        win.style.borderRadius = '12px';
-        win.style.background = 'var(--modal-bg, #fff)';
-        win.style.color = 'var(--text, #000)';
-        win.style.boxShadow = '0 18px 40px rgba(0,0,0,0.35)';
-        win.style.padding = '18px';
-        win.style.display = 'flex';
-        win.style.flexDirection = 'column';
-        win.style.gap = '12px';
-        win.style.fontFamily = 'Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial';
-        var title = document.createElement('div');
-        title.style.fontSize = '18px';
-        title.style.fontWeight = '700';
-        title.textContent = 'Hey You can\'t inspect here';
-        var msg = document.createElement('div');
-        msg.style.fontSize = '13px';
-        msg.style.color = 'var(--footer, #666)';
-        msg.style.lineHeight = '1.3';
-        msg.textContent = 'This Page Blocks Hacking And Stealing.';
-        var filler = document.createElement('div');
-        filler.style.flex = '1';
-        var closeWrap = document.createElement('div');
-        closeWrap.style.display = 'flex';
-        closeWrap.style.justifyContent = 'center';
-        var closeBtn = document.createElement('button');
-        closeBtn.textContent = 'Close';
-        closeBtn.style.padding = '10px 16px';
-        closeBtn.style.border = 'none';
-        closeBtn.style.borderRadius = '8px';
-        closeBtn.style.cursor = 'pointer';
-        closeBtn.style.background = 'var(--button-bg, #e0e0e0)';
-        closeBtn.style.color = 'var(--text, #000)';
-        closeBtn.style.fontSize = '14px';
-        closeBtn.addEventListener('click', function(){
-          try { document.body.removeChild(overlay); } catch(e){}
-        });
-        closeWrap.appendChild(closeBtn);
-        win.appendChild(title);
-        win.appendChild(msg);
-        win.appendChild(filler);
-        win.appendChild(closeWrap);
-        overlay.appendChild(win);
-        overlay.addEventListener('click', function(ev){
-          if (ev.target === overlay) {
-            try { document.body.removeChild(overlay); } catch(e){}
-          }
-        });
-        document.body.appendChild(overlay);
-        closeBtn.focus();
-      }
-    }, true);
-  })();
-  </script>
-
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=MedievalSharp&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Game Launcher — Cool Buttons</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
-    /* disable selection globally */
-    * { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
-
-    :root {
-      --medieval1: #3e2a15;
-      --medieval2: #5a3c1f;
-      --backrooms1: #fdf589;
-      --backrooms2: #c9c255;
-      --facility1: #1e2a2f;
-      --facility2: #3d5f66;
-      --facility3: #8ef1ff;
-      --accent-medieval: #ffdca8;
+    :root{
+      --bg-1: #0f172a;
+      --bg-2: #071028;
+      --glass: rgba(255,255,255,0.06);
+      --accent: linear-gradient(90deg,#7C3AED,#06B6D4);
+      --glass-border: rgba(255,255,255,0.08);
+      --button-glow: 0 8px 30px rgba(96,165,250,0.08);
+      --glass-blur: 10px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,0.12), transparent 10%),
+                  radial-gradient(900px 500px at 90% 90%, rgba(6,182,212,0.08), transparent 15%),
+                  linear-gradient(180deg,var(--bg-1),var(--bg-2));
+      color:#e6eef8;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:40px;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
-    body {
-      margin: 0;
-      font-family: 'Press Start 2P', monospace;
-      background: linear-gradient(
-        135deg,
-        var(--medieval1) 0%,
-        var(--medieval2) 15%,
-        var(--backrooms1) 35%,
-        var(--backrooms2) 50%,
-        var(--facility1) 70%,
-        var(--facility2) 85%,
-        var(--facility3) 100%
-      );
-      background-size: 300% 300%;
-      animation: bgShift 18s ease-in-out infinite alternate;
-      color: var(--accent-medieval);
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      position: relative;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+    .card{
+      width:min(980px,96%);
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid var(--glass-border);
+      border-radius:18px;
+      padding:28px;
+      backdrop-filter: blur(var(--glass-blur));
+      box-shadow: 0 10px 40px rgba(2,6,23,0.6);
+      position:relative;
+      overflow:hidden;
     }
 
-    @keyframes bgShift { 0% { background-position: left top; } 100% { background-position: right bottom; } }
+    .header{
+      display:flex;
+      gap:16px;
+      align-items:center;
+      margin-bottom:18px;
+    }
+    .logo{
+      width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,#7c3aed,#06b6d4);
+      display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;color:white;box-shadow:var(--button-glow);
+    }
+    h1{font-size:20px;margin:0}
+    p.lead{margin:0;color:rgba(230,238,248,0.78)}
 
-    canvas {
-      position: absolute; top: 0; left: 0;
-      z-index: 0; width: 100%; height: 100%; display: block; pointer-events: none;
+    .buttons{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:18px;
+      margin-top:20px;
     }
 
-    .container { text-align: center; position: relative; z-index: 1; transition: transform 0.1s ease-out; padding: 0 16px; }
+    .btn{
+      --angle: 90deg;
+      position:relative;
+      display:flex;
+      gap:14px;
+      align-items:center;
+      padding:18px 20px;
+      border-radius:14px;
+      cursor:pointer;
+      user-select:none;
+      transition:transform .18s cubic-bezier(.2,.9,.2,1), box-shadow .18s, opacity .12s;
+      border:1px solid rgba(255,255,255,0.04);
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      box-shadow:var(--button-glow);
+      overflow:hidden;
+    }
+    .btn:hover{transform:translateY(-6px) scale(1.01)}
+    .btn:active{transform:translateY(-2px) scale(.995)}
 
-    /* Title with fallback */
-    h1 {
-      font-size: 2.5rem; margin-bottom: 2rem; font-family: 'MedievalSharp', cursive;
-      color: var(--title-fallback, #ffdca8);
-      text-shadow: 2px 2px rgba(255,220,168,0.5), -2px -2px rgba(0,0,0,0.35);
-      animation: flicker 2s infinite;
-      display: inline-block;
+    .btn .icon{
+      width:56px;height:56px;border-radius:10px;display:grid;place-items:center;flex:0 0 56px;
+      background:linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.03);
+      box-shadow: inset 0 -6px 18px rgba(0,0,0,0.35);
     }
 
-    /* Buttons base */
-    .btn {
-      display: block;
-      margin: 18px auto;
-      padding: 15px 30px;
-      font-size: 1rem;
-      cursor: pointer;
-      border-radius: 12px;
-      text-decoration: none;
-      transition: transform 0.18s, background 0.18s, box-shadow 0.18s;
-      overflow: hidden;
-      position: relative;
-      color: var(--btn-fallback, #fff); /* fallback color for text */
-      border: 3px solid transparent;
-      min-width: 260px;
-      box-sizing: border-box;
+    .btn .meta{flex:1;min-width:0}
+    .btn h3{margin:0;font-size:16px;font-weight:700}
+    .btn p{margin:6px 0 0;font-size:12px;color:rgba(230,238,248,0.7)}
+
+    /* Neon accent strip */
+    .btn::after{
+      content:'';position:absolute;right:-40%;top:0;bottom:0;width:40%;opacity:0.06;
+      background:linear-gradient(var(--angle), rgba(124,58,237,0.35), rgba(6,182,212,0.35));
+      transform:skewX(-18deg);
+      transition:opacity .18s;
     }
-    .btn span { display: inline-block; line-height: 1; }
+    .btn:hover::after{opacity:0.16}
 
-    .btn:hover { transform: scale(1.06); }
+    /* special variants */
+    .btn.tall{grid-row:span 2}
 
-    /* Hollow Spire (medieval) */
-    .btn.medieval {
-      --btn-fallback: #ffdca8;
-      border-color: #b58350;
-      background: linear-gradient(90deg, #3e2a15 0%, #5a3c1f 40%, #8a6236 100%);
-      box-shadow: 0 0 15px rgba(255,220,120,0.35), inset 0 0 8px rgba(0,0,0,0.45);
-    }
-    .btn.medieval span { background-image: linear-gradient(to right, #ffdca8 50%, #111 50%); }
-
-    .btn.medieval:hover {
-      background: linear-gradient(90deg, #6a4622 0%, #b58350 100%);
-      box-shadow: 0 0 22px rgba(255,220,150,0.8), inset 0 0 12px rgba(0,0,0,0.6);
+    /* responsive */
+    @media (max-width:720px){
+      .buttons{grid-template-columns:1fr;}
+      .header{gap:12px}
     }
 
-    /* Backrooms (creepy yellow) */
-    .btn.backrooms {
-      --btn-fallback: #222;
-      border-color: #c9c255;
-      background: linear-gradient(90deg, #fdf589 0%, #c9c255 100%);
-      box-shadow: 0 0 15px rgba(255,255,120,0.35), inset 0 0 8px rgba(50,50,0,0.45);
-    }
-    .btn.backrooms span { background-image: linear-gradient(to right, #ffffb5 50%, #111 50%); }
-
-    .btn.backrooms:hover {
-      background: linear-gradient(90deg, #ffffa0 0%, #d9d960 100%);
-      box-shadow: 0 0 22px rgba(255,255,150,0.9), inset 0 0 12px rgba(60,60,0,0.7);
+    /* subtle particle animation */
+    .bg-orb{
+      position:absolute;right:-8%;top:-8%;width:420px;height:420px;border-radius:50%;filter:blur(40px);opacity:0.08;
+      background:radial-gradient(circle at 30% 30%, #06b6d4, transparent 30%), radial-gradient(circle at 70% 70%, #7c3aed, transparent 30%);
+      pointer-events:none;mix-blend-mode:screen;
     }
 
-    /* Facility (chimps) */
-    .btn.facility {
-      --btn-fallback: #8ef1ff;
-      border-color: #5a5a5a;
-      background: linear-gradient(90deg, #222 0%, #333 40%, #666 100%);
-      box-shadow: 0 0 15px rgba(120,255,220,0.35), inset 0 0 8px rgba(0,0,0,0.45);
+    /* modal */
+    .modal{
+      position:fixed;inset:0;display:grid;place-items:center;background:rgba(2,6,23,0.6);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .18s;
     }
-    .btn.facility span { background-image: linear-gradient(to right, #8ef1ff 50%, #111 50%); }
+    .modal.show{opacity:1;pointer-events:auto}
+    .modal .dialog{background:linear-gradient(180deg, #071029, #081025);padding:22px;border-radius:12px;min-width:260px;border:1px solid rgba(255,255,255,0.04)}
+    .close{margin-top:12px;display:inline-block;padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);cursor:pointer}
 
-    .btn.facility:hover {
-      background: linear-gradient(90deg, #444 0%, #555 50%, #999 100%);
-      box-shadow: 0 0 24px rgba(150,255,230,0.9), inset 0 0 12px rgba(0,0,0,0.7);
-    }
-
-    /* Vote (cool purple/blue) */
-    .btn.vote {
-      --btn-fallback: #b0a8ff;
-      border-color: #5a50b5;
-      background: linear-gradient(90deg, #3a2a7a 0%, #5a50b5 40%, #a050e6 100%);
-      box-shadow: 0 0 15px rgba(120,100,255,0.35), inset 0 0 8px rgba(0,0,0,0.45);
-    }
-    .btn.vote span { background-image: linear-gradient(to right, #b0a8ff 50%, #111 50%); }
-
-    .btn.vote:hover {
-      background: linear-gradient(90deg, #6a50e6 0%, #8a70ff 100%);
-      box-shadow: 0 0 22px rgba(160,140,255,0.9), inset 0 0 12px rgba(0,0,0,0.6);
-    }
-
-    /* If browser supports text-fill/clip — enable gradient text. If not, fallback color remains. */
-    @supports (-webkit-text-fill-color: transparent) {
-      .btn span {
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        color: transparent;
-      }
-      h1 {
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        color: transparent;
-        background-image: linear-gradient(to right, #ffdca8 42%, #8ef1ff 59%, #a050e6 100%);
-      }
-    }
-
-    /* Flicker */
-    @keyframes flicker {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
-      20%, 24%, 55% { opacity: 0.7; }
-    }
+    /* ripple */
+    .ripple{position:absolute;border-radius:50%;transform:scale(0);opacity:0.8;pointer-events:none}
   </style>
 </head>
 <body>
-  <canvas id="particles"></canvas>
+  <div class="card" role="application">
+    <div class="bg-orb" aria-hidden="true"></div>
+    <div class="header">
+      <div class="logo">G</div>
+      <div>
+        <h1>Choose a world</h1>
+        <p class="lead">Click any button to preview — playful animations and a neon glass style.</p>
+      </div>
+    </div>
 
-  <div class="container">
-    <h1>MAIN MENU</h1>
-    <a href="/hollowspire.html" class="btn medieval"><span>HOLLOW SPIRE</span></a>
-    <a href="/backrooms.html" class="btn backrooms"><span>BACKROOM EXPLORERS</span></a>
-    <a href="/ec.html" class="btn facility"><span>EXPERIMENTAL CHIMPS</span></a>
-    <a href="/voting.html" class="btn vote"><span>VOTE NOW</span></a>
+    <div class="buttons" role="list">
+      <button class="btn" id="btn1" aria-label="Open Hollow Spire" role="listitem">
+        <div class="icon" aria-hidden="true"> 
+          <!-- stylized spire SVG -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L4 20H20L12 2Z" stroke="white" stroke-opacity="0.95" stroke-width="1.2" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="meta">
+          <h3>Hollow Spire</h3>
+          <p>Echoing towers and shifting stairs — procedurally mysterious.</p>
+        </div>
+      </button>
+
+      <button class="btn" id="btn2" aria-label="Open The endless rooms" role="listitem">
+        <div class="icon" aria-hidden="true">
+          <!-- rooms icon -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="3" width="18" height="18" stroke="white" stroke-opacity="0.95" stroke-width="1.2" rx="2"/>
+            <path d="M8 8H16V16H8V8Z" stroke="white" stroke-opacity="0.6" stroke-width="1"/>
+          </svg>
+        </div>
+        <div class="meta">
+          <h3>The endless rooms</h3>
+          <p>Rooms within rooms — lose and find yourself.</p>
+        </div>
+      </button>
+
+      <button class="btn" id="btn3" aria-label="Open Experimental chimps" role="listitem">
+        <div class="icon" aria-hidden="true">
+          <!-- chimp icon -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="11" r="3" stroke="white" stroke-opacity="0.95" stroke-width="1.2"/>
+            <path d="M7 17c1.5-2 4.5-2 7 0" stroke="white" stroke-opacity="0.7" stroke-width="1" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="meta">
+          <h3>Experimental chimps</h3>
+          <p>Strange labs and curious primates — experimental gameplay.</p>
+        </div>
+      </button>
+
+      <button class="btn" id="btn4" aria-label="Open vr craft" role="listitem">
+        <div class="icon" aria-hidden="true">
+          <!-- vr icon -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="6" width="18" height="12" rx="2" stroke="white" stroke-opacity="0.95" stroke-width="1.2"/>
+            <path d="M7 10h3l1 3 1-4 1 2h3" stroke="white" stroke-opacity="0.7" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="meta">
+          <h3>vr craft</h3>
+          <p>Build and surf virtual spaces — crafted for VR.</p>
+        </div>
+      </button>
+    </div>
+
   </div>
 
-<script>
-  // Parallax for entire body
-  document.addEventListener('mousemove', (e) => {
-    const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
-    const moveY = (e.clientY / window.innerHeight - 0.5) * 20;
-    document.body.style.transform = `translate(${moveX}px, ${moveY}px)`;
-  });
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="dialog">
+      <div id="modalContent">
+        <!-- populated by JS -->
+      </div>
+      <button id="closeBtn" class="close">Close</button>
+    </div>
+  </div>
 
-  // Random flicker for buttons and title
-  function randomFlicker() {
-    document.querySelectorAll('.btn, h1').forEach(el => {
-      el.style.opacity = Math.random() > 0.8 ? "0.85" : "1";
+  <script>
+    const buttons = document.querySelectorAll('.btn');
+    const modal = document.getElementById('modal');
+    const modalContent = document.getElementById('modalContent');
+    const closeBtn = document.getElementById('closeBtn');
+
+    function showModal(title, desc){
+      modalContent.innerHTML = `<strong style="font-size:16px">${title}</strong><p style="margin-top:8px;color:rgba(230,238,248,0.8)">${desc}</p>`;
+      modal.classList.add('show');
+      modal.setAttribute('aria-hidden','false');
+    }
+
+    function hideModal(){
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden','true');
+    }
+
+    buttons.forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        const title = btn.querySelector('h3').textContent;
+        const desc = btn.querySelector('p').textContent;
+        // ripple effect
+        const rect = btn.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        const size = Math.max(rect.width, rect.height) * 1.6;
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+        ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+        ripple.style.background = 'radial-gradient(circle, rgba(255,255,255,0.12), rgba(255,255,255,0.02))';
+        ripple.style.transition = 'transform 600ms ease, opacity 600ms ease';
+        btn.appendChild(ripple);
+        requestAnimationFrame(()=>{ ripple.style.transform = 'scale(1)'; ripple.style.opacity = '0'; });
+        setTimeout(()=>{ ripple.remove(); },650);
+
+        showModal(title, desc);
+      });
     });
-  }
-  setInterval(randomFlicker, 200);
 
-  // Particle system (mixed colors)
-  const canvas = document.getElementById('particles');
-  const ctx = canvas.getContext('2d');
-  function resizeCanvas(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-  resizeCanvas();
+    closeBtn.addEventListener('click', hideModal);
+    modal.addEventListener('click', (e)=>{ if(e.target===modal) hideModal(); });
 
-  let particles = [];
-  for (let i = 0; i < 140; i++) {
-    const type = Math.random();
-    let color;
-    if (type < 0.35) color = "#ffdca8"; // medieval glow
-    else if (type < 0.65) color = "#c9c255"; // backrooms yellow
-    else if (type < 0.85) color = "#8ef1ff"; // facility cyan
-    else color = "#a050e6"; // vote purple
-    particles.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      radius: Math.random() * 2 + 1,
-      dx: (Math.random() - 0.5) * 0.6,
-      dy: (Math.random() - 0.5) * 0.6,
-      color: color
-    });
-  }
-
-  function drawParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => {
-      ctx.beginPath();
-      ctx.fillStyle = p.color;
-      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fill();
-      p.x += p.dx;
-      p.y += p.dy;
-      if (p.x < 0) p.x = canvas.width;
-      if (p.x > canvas.width) p.x = 0;
-      if (p.y < 0) p.y = canvas.height;
-      if (p.y > canvas.height) p.y = 0;
-    });
-    requestAnimationFrame(drawParticles);
-  }
-  drawParticles();
-
-  window.addEventListener('resize', () => {
-    resizeCanvas();
-  });
-</script>
+    // keyboard accessibility
+    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') hideModal(); });
+  </script>
 </body>
 </html>
