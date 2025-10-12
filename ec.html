@@ -1,175 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Experimental Chimps</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background: radial-gradient(circle at top, #0a0f1a 0%, #000000 100%);
-      color: #9fdcff;
-      font-family: 'Share Tech Mono', monospace;
-      overflow: hidden;
-      text-align: center;
-      transition: transform 0.15s ease-out;
-    }
-
-    h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 3rem;
-      margin-top: 50px;
-      color: #1ec0ff;
-      text-shadow: 0 0 15px #1ec0ff, 0 0 30px #0aa6ff;
-      letter-spacing: 2px;
-    }
-
-    p {
-      font-size: 1.1rem;
-      max-width: 700px;
-      margin: 20px auto;
-      line-height: 1.6;
-      background: rgba(0, 30, 60, 0.4);
-      padding: 15px 20px;
-      border: 2px solid #1ec0ff;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 166, 255, 0.3);
-    }
-
-    a.button {
-      display: inline-block;
-      margin-top: 25px;
-      padding: 12px 25px;
-      background: rgba(0, 50, 80, 0.8);
-      border: 2px solid #1ec0ff;
-      color: #9fdcff;
-      text-decoration: none;
-      font-family: 'Orbitron', sans-serif;
-      font-weight: bold;
-      border-radius: 10px;
-      transition: all 0.3s ease;
-      text-shadow: 0 0 8px #000;
-    }
-
-    a.button:hover {
-      background: #1ec0ff;
-      color: #000;
-      box-shadow: 0 0 20px #1ec0ff;
-    }
-
-    a.back {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 8px 18px;
-      background: rgba(0, 20, 40, 0.8);
-      border: 2px solid #1ec0ff;
-      color: #9fdcff;
-      text-decoration: none;
-      font-family: 'Share Tech Mono', monospace;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-    }
-
-    a.back:hover {
-      background: #1ec0ff;
-      color: #000;
-      box-shadow: 0 0 15px #1ec0ff;
-    }
-
-    /* Particle canvas */
-    #particles {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Experimental Chimps</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+<style>
+body{margin:0; font-family:'Orbitron', sans-serif; background:#1ec0ff; color:#000; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; text-align:center;}
+h1{font-size:3rem; text-shadow:0 0 15px #1ec0ff,0 0 30px #0aa6ff;}
+p{max-width:700px; background:rgba(0,30,60,0.4); padding:15px; border-radius:12px; border:2px solid #1ec0ff; box-shadow:0 0 15px rgba(0,166,255,0.3);}
+a.back{margin-top:20px; padding:10px 20px; background:rgba(0,50,80,0.8); border:2px solid #1ec0ff; color:#9fdcff; text-decoration:none; border-radius:10px; transition:0.3s;}
+a.back:hover{background:#1ec0ff; color:#000; box-shadow:0 0 20px #1ec0ff;}
+</style>
 </head>
 <body>
-  <canvas id="particles"></canvas>
-
-  <h1>EXPERIMENTAL CHIMPS</h1>
-  <p>
-    Deep within the facility, adaptive primates are contained, studied, and pushed beyond their limits.  
-    The research is unstable. The outcome is uncertain.  
-    <br><br>
-    Enter the experiment… if you dare.
-  </p>
-
-  
-  <a href="https://www.meta.com/en-gb/experiences/experimental-chimps/9380050432042851/?srsltid=AfmBOooMK3766-ZyppT8W4sdKRiYK9SAV2l438LOarTySpIkO5EFnRXO" 
-     class="button" target="_blank" rel="noopener noreferrer">
-    ▶ Open Game
-  </a>
-  <br>
-  <a href="/" class="back">⬅ Return to Menu</a>
-
-  <script>
-    // Particle background
-    const canvas = document.getElementById("particles");
-    const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let particles = [];
-
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 3 + 1;
-        this.speedY = Math.random() * 0.6 - 0.3;
-        this.speedX = Math.random() * 0.6 - 0.3;
-        this.opacity = Math.random();
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-      }
-      draw() {
-        ctx.fillStyle = "rgba(30,192,255," + this.opacity + ")";
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    function initParticles() {
-      particles = [];
-      for (let i = 0; i < 100; i++) {
-        particles.push(new Particle());
-      }
-    }
-
-    function animateParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => {
-        p.update();
-        p.draw();
-      });
-      requestAnimationFrame(animateParticles);
-    }
-
-    initParticles();
-    animateParticles();
-
-    window.addEventListener("resize", () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      initParticles();
-    });
-
-    // Parallax effect
-    document.addEventListener("mousemove", e => {
-      let moveX = (e.clientX / window.innerWidth - 0.5) * 20;
-      let moveY = (e.clientY / window.innerHeight - 0.5) * 20;
-      document.body.style.transform = `translate(${moveX}px, ${moveY}px)`;
-    });
-  </script>
+<h1>Experimental Chimps</h1>
+<p>Enter the lab where primates are pushed to extremes. The research is unstable. Are you ready for the experiment?</p>
+<a href="/" class="back">⬅ Return to CBS GAMES</a>
 </body>
 </html>
