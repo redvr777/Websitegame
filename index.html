@@ -1,165 +1,168 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Ultimate Game Launcher</title>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg-dark:#0a0a0f;
-      --hollowsp-bg:#8B4513; /* medieval brown */
-      --endless-bg:#FFD700; /* yellow/backroom */
-      --experimental-bg:#FF69B4; /* retro pink */
-      --vrcraft-bg:#32CD32; /* green */
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ultimate Game Launcher</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@700&family=MedievalSharp&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-dark:#0a0a0f;
+  --hollowsp-bg:#8B4513; /* medieval */
+  --endless-bg:#FFD700; /* yellow/backroom */
+  --experimental-bg:#FF69B4; /* retro */
+  --vrcraft-bg:#32CD32; /* green */
+}
 
-      /* button colors matching their themes */
-      --btn1:#8B4513;
-      --btn2:#FFD700;
-      --btn3:#FF69B4;
-      --btn4:#32CD32;
-    }
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{
-      height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-family:'Poppins',sans-serif;
-      overflow:hidden;
-      background:var(--bg-dark);
-      transition:background 0.5s ease;
-    }
-    .container{
-      text-align:center;
-      background:rgba(10,10,20,0.6);
-      border-radius:25px;
-      padding:50px 30px;
-      width:min(500px,90%);
-      backdrop-filter:blur(20px);
-      box-shadow:0 0 50px rgba(0,255,255,0.3);
-      position:relative;
-      overflow:hidden;
-    }
-    h1{
-      font-family:'Press Start 2P', cursive;
-      font-size:1.8em;
-      margin-bottom:30px;
-      text-shadow:0 0 8px #00ffff,0 0 16px #ff00ff;
-    }
-    .buttons{
-      display:flex;
-      flex-direction:column;
-      gap:20px;
-    }
-    .btn{
-      position:relative;
-      padding:25px;
-      border:none;
-      border-radius:16px;
-      font-size:1.1em;
-      font-weight:700;
-      color:#fff;
-      cursor:pointer;
-      overflow:hidden;
-      transition:0.25s;
-      box-shadow:0 0 10px rgba(255,255,255,0.2);
-      text-transform:uppercase;
-      text-decoration:none;
-      display:inline-block;
-    }
-    .btn::before{
-      content:'';
-      position:absolute;
-      top:0;left:0;right:0;bottom:0;
-      background:rgba(255,255,255,0.05);
-      opacity:0;
-      transition:opacity 0.3s;
-      border-radius:16px;
-    }
-    .btn:hover::before{opacity:1;}
-    .btn:hover{
-      transform:translateY(-5px) scale(1.02);
-      box-shadow:0 0 30px rgba(255,255,255,0.6);
-    }
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  height:100vh;
+  font-family:'Press Start 2P', monospace;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:var(--bg-dark);
+  transition:background 0.5s ease, transform 0.15s ease-out;
+}
 
-    .btn1{background:var(--btn1);}
-    .btn2{background:var(--btn2);color:#222;}
-    .btn3{background:var(--btn3);color:#222;}
-    .btn4{background:var(--btn4);}
+.container{
+  text-align:center;
+  background:rgba(10,10,20,0.7);
+  border-radius:25px;
+  padding:50px 30px;
+  width:min(500px,90%);
+  backdrop-filter:blur(15px);
+  box-shadow:0 0 50px rgba(0,255,255,0.3);
+  position:relative;
+  overflow:hidden;
+}
 
-    .grid{
-      position:absolute;
-      inset:0;
-      background-image:linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-      background-size:40px 40px;
-      z-index:0;
-      pointer-events:none;
-    }
-    .particle{
-      position:absolute;
-      width:10px;height:10px;
-      border-radius:50%;
-      background:radial-gradient(circle,#fff,#00ffff,#ff00ff);
-      animation:float 6s infinite alternate;
-      opacity:0.3;
-    }
-    @keyframes float{
-      from{transform:translateY(0) translateX(0) rotate(0deg)}
-      to{transform:translateY(-50px) translateX(30px) rotate(360deg)}
-    }
+h1{
+  font-family:'Press Start 2P', monospace;
+  font-size:2rem;
+  margin-bottom:30px;
+  text-shadow:0 0 12px #00ffff, 0 0 24px #ff00ff;
+}
 
-    .background-gradient{
-      position:absolute;
-      inset:0;
-      background:linear-gradient(-45deg,#ff416c,#ff4b2b,#00c6ff,#0072ff,#f7971e,#ffd200,#11998e,#38ef7d);
-      background-size:400% 400%;
-      animation:gradient 20s ease infinite;
-      z-index:-1;
-    }
-    @keyframes gradient{
-      0%{background-position:0% 50%}
-      50%{background-position:100% 50%}
-      100%{background-position:0% 50%}
-    }
-  </style>
+.buttons{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.btn{
+  padding:20px;
+  border:none;
+  border-radius:15px;
+  font-size:1rem;
+  font-weight:700;
+  cursor:pointer;
+  color:#fff;
+  text-transform:uppercase;
+  text-decoration:none;
+  transition:0.3s;
+  box-shadow:0 0 10px rgba(255,255,255,0.2);
+}
+
+.btn:hover{
+  transform:translateY(-5px) scale(1.03);
+  box-shadow:0 0 25px rgba(255,255,255,0.7);
+}
+
+.btn1{background:var(--hollowsp-bg);}
+.btn2{background:var(--endless-bg);color:#222;}
+.btn3{background:var(--experimental-bg);color:#222;}
+.btn4{background:var(--vrcraft-bg);}
+
+#particles{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:-1;
+}
+</style>
 </head>
 <body>
-  <div class="background-gradient"></div>
-  <div class="grid"></div>
-  <div class="container">
-    <h1>Ultimate Game Worlds</h1>
-    <div class="buttons">
-      <a href="https://example.com/hollowspire" class="btn btn1" data-bg="hollowsp-bg">Hollow Spire</a>
-      <a href="https://example.com/endlessrooms" class="btn btn2" data-bg="endless-bg">The Endless Rooms</a>
-      <a href="https://example.com/experimentalchimps" class="btn btn3" data-bg="experimental-bg">Experimental Chimps</a>
-      <a href="https://example.com/vrcraft" class="btn btn4" data-bg="vrcraft-bg">VR Craft</a>
-    </div>
-  </div>
-  <script>
-    // floating particles
-    for(let i=0;i<20;i++){
-      const p = document.createElement('div');
-      p.className='particle';
-      p.style.left=Math.random()*100+'%';
-      p.style.top=Math.random()*100+'%';
-      p.style.width=5+Math.random()*15+'px';
-      p.style.height=p.style.width;
-      p.style.animationDuration=3+Math.random()*5+'s';
-      document.body.appendChild(p);
-    }
+<canvas id="particles"></canvas>
 
-    // change background on hover
-    const buttons = document.querySelectorAll('.btn');
-    buttons.forEach(btn=>{
-      btn.addEventListener('mouseenter',()=>{
-        const bgVar = btn.getAttribute('data-bg');
-        document.body.style.background = `var(--${bgVar})`;
-      });
-      btn.addEventListener('mouseleave',()=>{
-        document.body.style.background = 'var(--bg-dark)';
-      });
-    });
-  </script>
+<div class="container">
+  <h1>Ultimate Game Worlds</h1>
+  <div class="buttons">
+    <a href="hollowspire.html" class="btn btn1" data-bg="hollowsp-bg">Hollow Spire</a>
+    <a href="endlessrooms.html" class="btn btn2" data-bg="endless-bg">The Endless Rooms</a>
+    <a href="experimentalchimps.html" class="btn btn3" data-bg="experimental-bg">Experimental Chimps</a>
+    <a href="vrcraft.html" class="btn btn4" data-bg="vrcraft-bg">VR Craft</a>
+  </div>
+</div>
+
+<script>
+// Particles
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+class Particle{
+  constructor(){
+    this.x = Math.random()*canvas.width;
+    this.y = Math.random()*canvas.height;
+    this.size = Math.random()*3+1;
+    this.speedX = Math.random()*0.6-0.3;
+    this.speedY = Math.random()*0.6-0.3;
+    this.opacity = Math.random();
+  }
+  update(){
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if(this.x<0||this.x>canvas.width)this.speedX*=-1;
+    if(this.y<0||this.y>canvas.height)this.speedY*=-1;
+  }
+  draw(){
+    ctx.fillStyle=`rgba(255,255,255,${this.opacity})`;
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+    ctx.fill();
+  }
+}
+
+function initParticles(){
+  particles = [];
+  for(let i=0;i<150;i++)particles.push(new Particle());
+}
+function animateParticles(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{p.update();p.draw();});
+  requestAnimationFrame(animateParticles);
+}
+initParticles();
+animateParticles();
+
+window.addEventListener('resize',()=>{
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
+  initParticles();
+});
+
+// Mouse parallax
+document.addEventListener('mousemove',e=>{
+  const moveX = (e.clientX/window.innerWidth-0.5)*20;
+  const moveY = (e.clientY/window.innerHeight-0.5)*20;
+  document.body.style.transform=`translate(${moveX}px,${moveY}px)`;
+});
+
+// Hover background change
+const buttons = document.querySelectorAll('.btn');
+buttons.forEach(btn=>{
+  btn.addEventListener('mouseenter',()=>{ 
+    const bgVar=btn.getAttribute('data-bg');
+    document.body.style.background=`var(--${bgVar})`;
+  });
+  btn.addEventListener('mouseleave',()=>{document.body.style.background='var(--bg-dark)';});
+});
+</script>
 </body>
 </html>
