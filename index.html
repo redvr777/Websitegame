@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ultimate Game Launcher</title>
+<title>CBS GAMES</title>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@700&family=MedievalSharp&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg-dark:#0a0a0f;
-  --hollowsp-bg:#8B4513; /* medieval */
-  --endless-bg:#FFD700; /* yellow/backroom */
-  --experimental-bg:#FF69B4; /* retro */
-  --vrcraft-bg:#32CD32; /* green */
+  --hollowsp-bg:#8B4513; /* medieval brown */
+  --endless-bg:#FFD700;   /* yellow/backroom */
+  --experimental-bg:#1ec0ff; /* retro blue */
+  --vrcraft-bg:#32CD32;   /* green */
 }
 
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -71,8 +71,8 @@ h1{
 }
 
 .btn1{background:var(--hollowsp-bg);}
-.btn2{background:var(--endless-bg);color:#222;}
-.btn3{background:var(--experimental-bg);color:#222;}
+.btn2{background:var(--endless-bg); color:#222;}
+.btn3{background:var(--experimental-bg); color:#000;} /* retro blue */
 .btn4{background:var(--vrcraft-bg);}
 
 #particles{
@@ -89,7 +89,7 @@ h1{
 <canvas id="particles"></canvas>
 
 <div class="container">
-  <h1>Ultimate Game Worlds</h1>
+  <h1>CBS GAMES</h1>
   <div class="buttons">
     <a href="hollowspire.html" class="btn btn1" data-bg="hollowsp-bg">Hollow Spire</a>
     <a href="endlessrooms.html" class="btn btn2" data-bg="endless-bg">The Endless Rooms</a>
@@ -158,8 +158,9 @@ document.addEventListener('mousemove',e=>{
 const buttons = document.querySelectorAll('.btn');
 buttons.forEach(btn=>{
   btn.addEventListener('mouseenter',()=>{ 
-    const bgVar=btn.getAttribute('data-bg');
-    document.body.style.background=`var(--${bgVar})`;
+    const bgVar = btn.getAttribute('data-bg');
+    if(bgVar==='experimental-bg') document.body.style.background='#1ec0ff';
+    else document.body.style.background=`var(--${bgVar})`;
   });
   btn.addEventListener('mouseleave',()=>{document.body.style.background='var(--bg-dark)';});
 });
