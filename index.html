@@ -5,48 +5,48 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BLOSK</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
   body {
     margin: 0;
     padding: 0;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #e0eafc, #cfdef3);
+    font-family: 'Inter', sans-serif;
+    background: #f4f4f4;
     color: #333;
-    overflow-x: hidden;
   }
 
   header {
     text-align: center;
-    padding: 50px 20px;
-    background: linear-gradient(90deg, #4b6cb7, #182848);
+    padding: 40px 20px;
+    background: #2c3e50;
     color: #fff;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
   }
 
   header h1 {
     margin: 0;
-    font-size: 3em;
+    font-size: 2.5em;
     font-weight: 600;
   }
 
   main {
-    max-width: 800px;
+    max-width: 700px;
     margin: 40px auto;
-    background: #ffffffcc;
+    background: #fff;
     padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    line-height: 1.6;
   }
 
   main h2 {
     text-align: center;
-    font-size: 2em;
-    color: #2c3e50;
+    font-size: 1.8em;
+    margin-bottom: 20px;
   }
 
   main h3 {
-    color: #34495e;
+    margin-top: 30px;
+    font-size: 1.3em;
   }
 
   main ul {
@@ -55,13 +55,10 @@
 
   main ul li {
     margin-bottom: 10px;
-    font-weight: 500;
-    color: #2c3e50;
   }
 
   a {
     color: #2980b9;
-    font-weight: 600;
     text-decoration: none;
   }
 
@@ -77,19 +74,13 @@
     font-weight: 500;
   }
 
-  /* Subtle floating shapes */
-  .circle {
+  /* Optional: subtle organic background shapes */
+  .shape {
     position: absolute;
     border-radius: 50%;
-    opacity: 0.2;
-    animation: float 15s infinite ease-in-out;
+    background: rgba(41, 128, 185, 0.05);
+    pointer-events: none;
     z-index: 0;
-  }
-
-  @keyframes float {
-    0% { transform: translateY(0) translateX(0); }
-    50% { transform: translateY(-30px) translateX(15px); }
-    100% { transform: translateY(0) translateX(0); }
   }
 </style>
 </head>
@@ -100,39 +91,36 @@
 </header>
 
 <main>
-  <h2>BLOSK</h2>
-  <p>This is a highly confidential project I’m about to start working on. It’s similar to Roblox—but with a key difference: <strong>almost everything in the platform is editable</strong> by users.</p>
+  <h2>Welcome to BLOSK</h2>
+  <p>We’re starting a new project called BLOSK. Think of it like Roblox—but almost everything in the world is editable by users. You can tweak, build, and create freely.</p>
 
-  <h3>Key Features:</h3>
+  <h3>What you can do:</h3>
   <ul>
-    <li>Fully editable world – users can modify nearly every aspect of the environment</li>
-    <li>Customizable gameplay – create, share, and play your own games</li>
-    <li>Advanced tools – powerful editing tools for creators</li>
-    <li>Community-driven – users can collaborate, trade, and share creations</li>
-    <li>Exclusive access – invite-only project for early contributors</li>
+    <li>Edit nearly every part of the world</li>
+    <li>Create and share your own games and experiences</li>
+    <li>Use simple but powerful tools for building</li>
+    <li>Collaborate and share with others in the community</li>
+    <li>Get early access if you’re invited</li>
   </ul>
 
-  <p>Join the discussion and early access here: <a href="https://discord.gg/qcUucWEhp4" target="_blank">Discord Link</a></p>
+  <p>Want to join the early discussion? Check out our <a href="https://discord.gg/qcUucWEhp4" target="_blank">Discord</a>.</p>
 </main>
 
 <footer>
-  &copy; BLOSK
+  &copy; 2025 BLOSK
 </footer>
 
-<!-- Subtle floating circles -->
+<!-- Subtle background shapes -->
 <script>
-  const colors = ['#2c3e50', '#34495e', '#2980b9', '#3498db'];
-  for (let i = 0; i < 15; i++) {
-    let circle = document.createElement('div');
-    circle.className = 'circle';
-    let size = Math.random() * 40 + 10;
-    circle.style.width = size + 'px';
-    circle.style.height = size + 'px';
-    circle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-    circle.style.top = Math.random() * window.innerHeight + 'px';
-    circle.style.left = Math.random() * window.innerWidth + 'px';
-    circle.style.animationDuration = (10 + Math.random() * 15) + 's';
-    document.body.appendChild(circle);
+  for (let i = 0; i < 10; i++) {
+    let shape = document.createElement('div');
+    shape.className = 'shape';
+    let size = Math.random() * 80 + 40;
+    shape.style.width = size + 'px';
+    shape.style.height = size + 'px';
+    shape.style.top = Math.random() * window.innerHeight + 'px';
+    shape.style.left = Math.random() * window.innerWidth + 'px';
+    document.body.appendChild(shape);
   }
 </script>
 
