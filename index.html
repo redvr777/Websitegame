@@ -178,18 +178,23 @@ settingsModal.classList.toggle('dark-mode');
 playClickSound();
 });
 
-function playClickSound(){
-const audioCtx=new(window.AudioContext||window.webkitAudioContext)();
-const oscillator=audioCtx.createOscillator();
-const gainNode=audioCtx.createGain();
-oscillator.type='square';
-oscillator.frequency.setValueAtTime(1000,audioCtx.currentTime);
-gainNode.gain.setValueAtTime(0.1,audioCtx.currentTime);
-oscillator.connect(gainNode);
-gainNode.connect(audioCtx.destination);
-oscillator.start();
-oscillator.stop(audioCtx.currentTime+0.05);
+function playClickSound() {
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const bufferSize = audioCtx.sampleRate * 0.02; // 20ms click
+    const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+    const data = buffer.getChannelData(0);
+
+    // Fill buffer with white noise and apply exponential decay
+    for (let i = 0; i < bufferSize; i++) {
+        data[i] = (Math.random() * 2 - 1) * Math.exp(-i / bufferSize);
+    }
+
+    const source = audioCtx.createBufferSource();
+    source.buffer = buffer;
+    source.connect(audioCtx.destination);
+    source.start();
 }
+
 
 document.querySelectorAll('a, button, .cta-button').forEach(el=>{el.addEventListener('click',playClickSound)});
 </script>
