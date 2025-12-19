@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BLOSK</title>
+<title>BLOSK – Editable World Platform</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
   body {
     margin: 0;
@@ -15,45 +15,80 @@
     color: #333;
   }
 
+  /* Header */
   header {
     text-align: center;
-    padding: 40px 20px;
+    padding: 50px 20px;
     background: #2c3e50;
     color: #fff;
   }
 
   header h1 {
     margin: 0;
-    font-size: 2.5em;
+    font-size: 3em;
+    font-weight: 700;
+  }
+
+  header p {
+    font-size: 1.2em;
+    margin-top: 10px;
+    color: #ecf0f1;
+  }
+
+  /* Navigation */
+  nav {
+    display: flex;
+    justify-content: center;
+    background: #34495e;
+    padding: 10px 0;
+  }
+
+  nav a {
+    color: #ecf0f1;
+    text-decoration: none;
+    margin: 0 15px;
     font-weight: 600;
   }
 
+  nav a:hover {
+    text-decoration: underline;
+  }
+
+  /* Main container */
   main {
-    max-width: 700px;
+    max-width: 1000px;
     margin: 40px auto;
-    background: #fff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    line-height: 1.6;
+    padding: 0 20px;
   }
 
-  main h2 {
+  section {
+    margin-bottom: 60px;
+  }
+
+  section h2 {
+    font-size: 2em;
+    margin-bottom: 15px;
+    color: #2c3e50;
     text-align: center;
-    font-size: 1.8em;
-    margin-bottom: 20px;
   }
 
-  main h3 {
-    margin-top: 30px;
-    font-size: 1.3em;
+  section h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #34495e;
   }
 
-  main ul {
+  section p {
+    font-size: 1em;
+    line-height: 1.7;
+    margin-bottom: 15px;
+  }
+
+  ul {
     padding-left: 20px;
   }
 
-  main ul li {
+  ul li {
     margin-bottom: 10px;
   }
 
@@ -66,15 +101,41 @@
     text-decoration: underline;
   }
 
+  /* Footer */
   footer {
     text-align: center;
-    padding: 20px;
+    padding: 30px 20px;
     background: #34495e;
     color: #ecf0f1;
     font-weight: 500;
   }
 
-  /* Optional: subtle organic background shapes */
+  /* Call to action button */
+  .cta-button {
+    display: inline-block;
+    padding: 12px 25px;
+    margin-top: 20px;
+    background: #2980b9;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 6px;
+    text-decoration: none;
+  }
+
+  .cta-button:hover {
+    background: #3498db;
+  }
+
+  /* Section styling */
+  .feature-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+  }
+
+  /* Optional subtle background shapes */
   .shape {
     position: absolute;
     border-radius: 50%;
@@ -88,34 +149,95 @@
 
 <header>
   <h1>BLOSK</h1>
+  <p>Your world, your rules – create, edit, and share freely.</p>
 </header>
 
+<nav>
+  <a href="#about">About</a>
+  <a href="#features">Features</a>
+  <a href="#community">Community</a>
+  <a href="#tools">Tools</a>
+  <a href="#join">Join</a>
+</nav>
+
 <main>
-  <h2>Welcome to BLOSK</h2>
-  <p>We’re starting a new project called BLOSK. Think of it like Roblox—but almost everything in the world is editable by users. You can tweak, build, and create freely.</p>
 
-  <h3>What you can do:</h3>
+<!-- About Section -->
+<section id="about">
+  <h2>About BLOSK</h2>
+  <p>BLOSK is a next-generation editable world platform where creativity is truly unlimited. Unlike traditional game platforms, BLOSK allows users to modify almost every aspect of the environment. From terrain and objects to gameplay mechanics, everything is designed to be fully interactive and user-driven.</p>
+  <p>Our mission is simple: empower creators to bring their ideas to life in a collaborative, dynamic, and fun environment. BLOSK is a place where imagination meets flexibility, and where players can become creators without limits.</p>
+</section>
+
+<!-- Features Section -->
+<section id="features">
+  <h2>Key Features</h2>
+
+  <div class="feature-box">
+    <h3>Editable Worlds</h3>
+    <p>Every part of the game world can be modified. Change landscapes, adjust physics, or add interactive elements. The only limit is your imagination.</p>
+  </div>
+
+  <div class="feature-box">
+    <h3>Custom Games</h3>
+    <p>Create, share, and play games made by the community. BLOSK’s platform supports multiplayer experiences, collaborative projects, and personal creations.</p>
+  </div>
+
+  <div class="feature-box">
+    <h3>Advanced Tools</h3>
+    <p>Our tools are designed for creators of all levels. From simple drag-and-drop building to advanced scripting options, BLOSK makes creation intuitive yet powerful.</p>
+  </div>
+
+  <div class="feature-box">
+    <h3>Community Collaboration</h3>
+    <p>Connect with other creators, share assets, and collaborate on large-scale projects. BLOSK fosters a thriving community of creators who learn from and inspire each other.</p>
+  </div>
+
+  <div class="feature-box">
+    <h3>Exclusive Early Access</h3>
+    <p>Be part of our early contributors program. Get access to beta features, provide feedback, and help shape the future of BLOSK.</p>
+  </div>
+</section>
+
+<!-- Community Section -->
+<section id="community">
+  <h2>Our Community</h2>
+  <p>BLOSK is more than a platform—it’s a growing community of creators, gamers, and innovators. Users can trade assets, collaborate on projects, and provide feedback on new tools and features.</p>
+  <p>We host regular online events, challenges, and showcases to highlight top creations and encourage collaboration. Our community is supportive, inclusive, and always pushing the boundaries of what’s possible.</p>
+</section>
+
+<!-- Tools Section -->
+<section id="tools">
+  <h2>Creator Tools</h2>
+  <p>Our powerful toolkit includes:</p>
   <ul>
-    <li>Edit nearly every part of the world</li>
-    <li>Create and share your own games and experiences</li>
-    <li>Use simple but powerful tools for building</li>
-    <li>Collaborate and share with others in the community</li>
-    <li>Get early access if you’re invited</li>
+    <li>Drag-and-drop building interface for rapid creation</li>
+    <li>Advanced scripting system for customizing gameplay</li>
+    <li>Asset library and marketplace for easy sharing</li>
+    <li>Multiplayer collaboration tools</li>
+    <li>Real-time editing and testing environment</li>
   </ul>
+</section>
 
-  <p>Want to join the early discussion? Check out our <a href="https://discord.gg/qcUucWEhp4" target="_blank">Discord</a>.</p>
+<!-- Call to Action Section -->
+<section id="join">
+  <h2>Join BLOSK</h2>
+  <p>We are inviting early contributors to join BLOSK and help us build a platform where creativity knows no bounds. Whether you are a gamer, developer, or designer, BLOSK offers a space to explore and create.</p>
+  <a href="https://discord.gg/qcUucWEhp4" class="cta-button" target="_blank">Join Our Discord</a>
+</section>
+
 </main>
 
 <footer>
-  &copy; 2025 BLOSK
+  &copy; 2025 BLOSK – All Rights Reserved
 </footer>
 
 <!-- Subtle background shapes -->
 <script>
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 15; i++) {
     let shape = document.createElement('div');
     shape.className = 'shape';
-    let size = Math.random() * 80 + 40;
+    let size = Math.random() * 100 + 50;
     shape.style.width = size + 'px';
     shape.style.height = size + 'px';
     shape.style.top = Math.random() * window.innerHeight + 'px';
