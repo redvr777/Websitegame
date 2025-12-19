@@ -6,35 +6,37 @@
 <title>BLOSK</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-body{margin:0;padding:0;font-family:'Inter',sans-serif;background:#f4f4f4;color:#333;scroll-behavior:smooth;transition: background 0.3s, color 0.3s}
-body.dark-mode{background:#1c1c1c;color:#ecf0f1}
+body{margin:0;padding:0;font-family:'Inter',sans-serif;background:#f4f4f4;color:#333;scroll-behavior:smooth;transition: background 0.3s, color 0.3s;}
+body.dark-mode{background:#1c1c1c;color:#ecf0f1;}
+body.small-font{font-size:14px;}
+body.large-font{font-size:18px;}
 header{text-align:center;padding:50px 20px 20px 20px;background:#2c3e50;color:#fff;transition: background 0.3s, color 0.3s;}
 header.dark-mode{background:#111;color:#fff;}
-header h1{margin:0;font-size:3em;font-weight:700}
-header p{font-size:1.2em;margin-top:10px;color:#ecf0f1}
+header h1{margin:0;font-size:3em;font-weight:700;}
+header p{font-size:1.2em;margin-top:10px;color:#ecf0f1;}
 nav{position:sticky;top:0;width:100%;display:flex;justify-content:center;background:#34495e;padding:12px 0;z-index:1000;box-shadow:0 2px 5px rgba(0,0,0,0.1);transition: background 0.3s;}
 nav.dark-mode{background:#222;}
-nav a{color:#ecf0f1;text-decoration:none;margin:0 20px;font-weight:600;transition:color 0.3s}
-nav a:hover{color:#3498db;text-decoration:underline}
-main{max-width:1000px;margin:40px auto;padding:0 20px}
-section{margin-bottom:60px}
-section h2{font-size:2em;margin-bottom:15px;color:#2c3e50;text-align:center}
+nav a{color:#ecf0f1;text-decoration:none;margin:0 20px;font-weight:600;transition:color 0.3s;}
+nav a:hover{color:#3498db;text-decoration:underline;}
+main{max-width:1200px;margin:40px auto;padding:0 20px;}
+section{margin-bottom:60px;position:relative;z-index:1;}
+section h2{font-size:2em;margin-bottom:15px;color:#2c3e50;text-align:center;}
 section.dark-mode h2{color:#fff;}
-section h3{font-size:1.5em;margin-bottom:10px;color:#34495e}
+section h3{font-size:1.5em;margin-bottom:10px;color:#34495e;}
 section.dark-mode h3{color:#ddd;}
-section p{font-size:1em;line-height:1.7;margin-bottom:15px}
-ul{padding-left:20px}
-ul li{margin-bottom:10px}
-a{color:#2980b9;text-decoration:none}
-a:hover{text-decoration:underline}
+section p{font-size:1em;line-height:1.7;margin-bottom:15px;}
+ul{padding-left:20px;}
+ul li{margin-bottom:10px;}
+a{color:#2980b9;text-decoration:none;}
+a:hover{text-decoration:underline;}
 footer{text-align:center;padding:30px 20px;background:#34495e;color:#ecf0f1;font-weight:500;transition: background 0.3s,color 0.3s;}
 footer.dark-mode{background:#222;color:#fff;}
-.cta-button{display:inline-block;padding:12px 25px;margin-top:20px;background:#2980b9;color:#fff;font-weight:600;border-radius:6px;text-decoration:none;transition:background 0.3s}
-.cta-button:hover{background:#3498db}
+.cta-button{display:inline-block;padding:12px 25px;margin-top:20px;background:#2980b9;color:#fff;font-weight:600;border-radius:6px;text-decoration:none;transition:background 0.3s;}
+.cta-button:hover{background:#3498db;}
 .feature-box{background:#fff;padding:20px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.1);margin-bottom:20px;transition: background 0.3s, color 0.3s;}
 .feature-box.dark-mode{background:#2c2c2c;color:#eee;}
-.shape{position:absolute;border-radius:50%;background:rgba(41,128,185,0.05);pointer-events:none;z-index:0}
-#settings-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;color:#333;padding:30px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.2);display:none;z-index:2000;max-width:300px;text-align:center}
+.shape{position:absolute;border-radius:50%;background:rgba(41,128,185,0.05);pointer-events:none;z-index:0;transition: transform 0.3s;}
+#settings-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;color:#333;padding:30px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.2);display:none;z-index:2000;max-width:350px;text-align:center;}
 #settings-modal.dark-mode{background:#222;color:#fff;}
 #settings-modal h3{margin-bottom:20px;}
 #settings-modal button{padding:10px 20px;margin:5px;cursor:pointer;border:none;border-radius:6px;background:#2980b9;color:#fff;font-weight:600;transition: background 0.3s;}
@@ -55,6 +57,8 @@ footer.dark-mode{background:#222;color:#fff;}
 <a href="#users">Users</a>
 <a href="#community">Community</a>
 <a href="#tools">Tools</a>
+<a href="#roadmap">Roadmap</a>
+<a href="#team">Team</a>
 <a href="#join">Join</a>
 <a href="#" id="settings-btn">Settings</a>
 </nav>
@@ -68,45 +72,17 @@ footer.dark-mode{background:#222;color:#fff;}
 
 <section id="creators">
 <h2>For Creators</h2>
-
-<div class="feature-box">
-<h3>Full Creative Control</h3>
-<p>Creators can design every aspect of their world using presets and advanced tools. Shape landscapes, objects, and gameplay systems to build unique experiences for players.</p>
-</div>
-
-<div class="feature-box">
-<h3>Advanced Tools</h3>
-<p>Drag and drop presets, BLOSK gives creators the power to bring their vision to life without limits (For the most part lol).</p>
-</div>
-
-<div class="feature-box">
-<h3>Collaboration</h3>
-<p>Collaboration features are coming soon, allowing multiple creators to work together, share assets, and co-create larger worlds.</p>
-</div>
-
-<div class="feature-box">
-<h3>Future Features</h3>
-<p>Upcoming updates will include the ability to upload custom models and further expand creative possibilities. BLOSK is continually evolving to give creators more freedom and flexibility.</p>
-</div>
+<div class="feature-box"><h3>Full Creative Control</h3><p>Creators can design every aspect of their world using presets and advanced tools. Shape landscapes, objects, and gameplay systems to build unique experiences for players.</p></div>
+<div class="feature-box"><h3>Advanced Tools</h3><p>Drag and drop presets, BLOSK gives creators the power to bring their vision to life without limits (For the most part lol).</p></div>
+<div class="feature-box"><h3>Collaboration</h3><p>Collaboration features are coming soon, allowing multiple creators to work together, share assets, and co-create larger worlds.</p></div>
+<div class="feature-box"><h3>Future Features</h3><p>Upcoming updates will include the ability to upload custom models and further expand creative possibilities. BLOSK is continually evolving to give creators more freedom and flexibility.</p></div>
 </section>
 
 <section id="users">
 <h2>For Players</h2>
-
-<div class="feature-box">
-<h3>Playable Worlds</h3>
-<p>Players can explore immersive worlds made by creators. Every environment is interactive and designed to provide engaging experiences.</p>
-</div>
-
-<div class="feature-box">
-<h3>Community Interaction</h3>
-<p>Users can provide feedback, participate in events, and support creators as they develop new content. While editing worlds will not be allowed by users, users can enjoy rich and interactive gameplay experiences.</p>
-</div>
-
-<div class="feature-box">
-<h3>Future Engagement</h3>
-<p>Future updates will allow players to participate in collaborative projects and experience worlds with enhanced interactivity through shared contributions.</p>
-</div>
+<div class="feature-box"><h3>Playable Worlds</h3><p>Players can explore immersive worlds made by creators. Every environment is interactive and designed to provide engaging experiences.</p></div>
+<div class="feature-box"><h3>Community Interaction</h3><p>Users can provide feedback, participate in events, and support creators as they develop new content. While editing worlds will not be allowed by users, users can enjoy rich and interactive gameplay experiences.</p></div>
+<div class="feature-box"><h3>Future Engagement</h3><p>Future updates will allow players to participate in collaborative projects and experience worlds with enhanced interactivity through shared contributions.</p></div>
 </section>
 
 <section id="community">
@@ -126,6 +102,22 @@ footer.dark-mode{background:#222;color:#fff;}
 </ul>
 </section>
 
+<section id="roadmap">
+<h2>Roadmap</h2>
+<div class="feature-box"><h3>Q1 2026</h3><p>Launch early access, initial creator tools, playable worlds.</p></div>
+<div class="feature-box"><h3>Q2 2026</h3><p>Introduce collaboration features, expanded assets, first community challenges.</p></div>
+<div class="feature-box"><h3>Q3 2026</h3><p>Custom model uploads, advanced scripting presets, and enhanced performance.</p></div>
+<div class="feature-box"><h3>Q4 2026</h3><p>Mobile support, multiplayer co-creation, AI-assisted creation tools.</p></div>
+</section>
+
+<section id="team">
+<h2>Meet the Team</h2>
+<div class="feature-box"><h3>Foil Top</h3><p>Founder & Visionary</p></div>
+<div class="feature-box"><h3>Creative Lead</h3><p>Shapes the platform’s look and feel.</p></div>
+<div class="feature-box"><h3>Developer Team</h3><p>Builds the engine and tools for creators.</p></div>
+<div class="feature-box"><h3>Community Manager</h3><p>Engages with the growing BLOSK community.</p></div>
+</section>
+
 <section id="join">
 <h2>Join BLOSK</h2>
 <p>We invite creators and early contributors to help shape BLOSK. Whether you design, build, or play, BLOSK offers a space to explore, create, and share immersive experiences.</p>
@@ -142,30 +134,48 @@ footer.dark-mode{background:#222;color:#fff;}
 <div id="settings-modal">
 <h3>Settings</h3>
 <button id="toggle-theme">Toggle Light/Dark Mode</button>
+<button id="increase-font">Increase Font Size</button>
+<button id="decrease-font">Decrease Font Size</button>
+<button id="toggle-shapes">Toggle Background Shapes</button>
+<label for="click-volume">Click Volume:</label>
+<input type="range" id="click-volume" min="0" max="1" step="0.01" value="0.2">
 <button id="close-settings">Close</button>
 </div>
 
 <script>
-for(let i=0;i<15;i++){
-let s=document.createElement('div');
-s.className='shape';
-let size=Math.random()*100+50;
-s.style.width=size+'px';
-s.style.height=size+'px';
-s.style.top=Math.random()*window.innerHeight+'px';
-s.style.left=Math.random()*window.innerWidth+'px';
-document.body.appendChild(s);
+// Background shapes
+let shapes = [];
+function createShapes(num=20){
+    shapes.forEach(s=>document.body.removeChild(s));
+    shapes=[];
+    for(let i=0;i<num;i++){
+        let s=document.createElement('div');
+        s.className='shape';
+        let size=Math.random()*100+50;
+        s.style.width=size+'px';
+        s.style.height=size+'px';
+        s.style.top=Math.random()*window.innerHeight+'px';
+        s.style.left=Math.random()*window.innerWidth+'px';
+        document.body.appendChild(s);
+        shapes.push(s);
+    }
 }
+createShapes();
 
+// Settings modal
 const settingsBtn=document.getElementById('settings-btn');
 const settingsModal=document.getElementById('settings-modal');
 const overlay=document.getElementById('settings-overlay');
 const closeBtn=document.getElementById('close-settings');
 const toggleThemeBtn=document.getElementById('toggle-theme');
+const increaseFontBtn=document.getElementById('increase-font');
+const decreaseFontBtn=document.getElementById('decrease-font');
+const toggleShapesBtn=document.getElementById('toggle-shapes');
+const clickVolumeSlider=document.getElementById('click-volume');
 
-settingsBtn.addEventListener('click',()=>{settingsModal.style.display='block';overlay.style.display='block';playClickSound()});
-closeBtn.addEventListener('click',()=>{settingsModal.style.display='none';overlay.style.display='none';playClickSound()});
-overlay.addEventListener('click',()=>{settingsModal.style.display='none';overlay.style.display='none'});
+settingsBtn.addEventListener('click',()=>{settingsModal.style.display='block';overlay.style.display='block';playClickSound();});
+closeBtn.addEventListener('click',()=>{settingsModal.style.display='none';overlay.style.display='none';playClickSound();});
+overlay.addEventListener('click',()=>{settingsModal.style.display='none';overlay.style.display='none';});
 
 toggleThemeBtn.addEventListener('click',()=>{
 document.body.classList.toggle('dark-mode');
@@ -177,29 +187,57 @@ document.querySelectorAll('.feature-box').forEach(f=>f.classList.toggle('dark-mo
 settingsModal.classList.toggle('dark-mode');
 playClickSound();
 });
-function playClickSound() {
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioCtx.createOscillator();
-    const gainNode = audioCtx.createGain();
 
-    oscillator.type = 'triangle'; 
-    oscillator.frequency.setValueAtTime(1000, audioCtx.currentTime); 
-    gainNode.gain.setValueAtTime(0.001, audioCtx.currentTime);
+increaseFontBtn.addEventListener('click',()=>{
+document.body.classList.remove('small-font');
+document.body.classList.add('large-font');
+playClickSound();
+});
 
-  
-    gainNode.gain.exponentialRampToValueAtTime(0.2, audioCtx.currentTime + 0.005);
-   
-    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
+decreaseFontBtn.addEventListener('click',()=>{
+document.body.classList.remove('large-font');
+document.body.classList.add('small-font');
+playClickSound();
+});
 
-    oscillator.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
-    oscillator.start();
-    oscillator.stop(audioCtx.currentTime + 0.035); 
+let shapesVisible=true;
+toggleShapesBtn.addEventListener('click',()=>{
+shapesVisible=!shapesVisible;
+shapes.forEach(s=>s.style.display=shapesVisible?'block':'none');
+playClickSound();
+});
+
+// Softer click sound
+function playClickSound(){
+const volume=parseFloat(clickVolumeSlider.value)||0.2;
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+const oscillator = audioCtx.createOscillator();
+const gainNode = audioCtx.createGain();
+oscillator.type='sine';
+oscillator.frequency.setValueAtTime(600, audioCtx.currentTime);
+gainNode.gain.setValueAtTime(0.001, audioCtx.currentTime);
+gainNode.gain.exponentialRampToValueAtTime(volume, audioCtx.currentTime+0.01);
+gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime+0.15);
+oscillator.connect(gainNode);
+gainNode.connect(audioCtx.destination);
+oscillator.start();
+oscillator.stop(audioCtx.currentTime+0.16);
 }
 
+// Attach click sound to buttons and links
+document.querySelectorAll('a, button, .cta-button').forEach(el=>{el.addEventListener('click',playClickSound);});
 
-
-document.querySelectorAll('a, button, .cta-button').forEach(el=>{el.addEventListener('click',playClickSound)});
+// Optional: Floating shape animation
+setInterval(()=>{
+shapes.forEach(s=>{
+let x=parseFloat(s.style.left);
+let y=parseFloat(s.style.top);
+x+=Math.random()*2-1;
+y+=Math.random()*2-1;
+s.style.left=x+'px';
+s.style.top=y+'px';
+});
+},50);
 </script>
 
 </body>
