@@ -162,6 +162,36 @@ function createShapes(num=20){
 }
 createShapes();
 
+// Load settings from localStorage
+function loadSettings(){
+    if(localStorage.getItem('darkMode')==='true'){
+        document.body.classList.add('dark-mode');
+        document.querySelector('header').classList.add('dark-mode');
+        document.querySelector('nav').classList.add('dark-mode');
+        document.querySelector('footer').classList.add('dark-mode');
+        document.querySelectorAll('section').forEach(s=>s.classList.add('dark-mode'));
+        document.querySelectorAll('.feature-box').forEach(f=>f.classList.add('dark-mode'));
+        document.getElementById('settings-modal').classList.add('dark-mode');
+    }
+    const fontSize = localStorage.getItem('fontSize');
+    if(fontSize==='small'){document.body.classList.add('small-font');}
+    if(fontSize==='large'){document.body.classList.add('large-font');}
+    const shapesVisible = localStorage.getItem('shapesVisible');
+    if(shapesVisible==='false'){shapes.forEach(s=>s.style.display='none'); window.shapesVisible=false;}else{window.shapesVisible=true;}
+    const clickVolume = localStorage.getItem('clickVolume');
+    if(clickVolume){document.getElementById('click-volume').value = clickVolume;}
+}
+
+// Save settings to localStorage
+function saveSettings(){
+    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    localStorage.setItem('fontSize', document.body.classList.contains('large-font') ? 'large' : document.body.classList.contains('small-font') ? 'small' : 'normal');
+    localStorage.setItem('shapesVisible', window.shapesVisible);
+    localStorage.setItem('clickVolume', document.getElementById('click-volume').value);
+}
+
+window.addEventListener('load', loadSettings);
+
 // Settings modal
 const settingsBtn=document.getElementById('settings-btn');
 const settingsModal=document.getElementById('settings-modal');
@@ -174,8 +204,17 @@ const toggleShapesBtn=document.getElementById('toggle-shapes');
 const clickVolumeSlider=document.getElementById('click-volume');
 
 settingsBtn.addEventListener('click',()=>{settingsModal.style.display='block';overlay.style.display='block';playClickSound();});
-closeBtn.addEventListener('click',()=>{settingsModal.style.display='none';overlay.style.display='none';playClickSound();});
-overlay.addEventListener('click',()=>{settingsModal.style.display='none';overlay.style.display='none';});
+closeBtn.addEventListener('click',()=>{
+    settingsModal.style.display='none';
+    overlay.style.display='none';
+    playClickSound();
+    saveSettings();
+});
+overlay.addEventListener('click',()=>{
+    settingsModal.style.display='none';
+    overlay.style.display='none';
+    saveSettings();
+});
 
 toggleThemeBtn.addEventListener('click',()=>{
 document.body.classList.toggle('dark-mode');
@@ -186,25 +225,30 @@ document.querySelectorAll('section').forEach(s=>s.classList.toggle('dark-mode'))
 document.querySelectorAll('.feature-box').forEach(f=>f.classList.toggle('dark-mode'));
 settingsModal.classList.toggle('dark-mode');
 playClickSound();
+saveSettings();
 });
 
 increaseFontBtn.addEventListener('click',()=>{
 document.body.classList.remove('small-font');
 document.body.classList.add('large-font');
 playClickSound();
+saveSettings();
 });
 
 decreaseFontBtn.addEventListener('click',()=>{
 document.body.classList.remove('large-font');
 document.body.classList.add('small-font');
 playClickSound();
+saveSettings();
 });
 
 let shapesVisible=true;
 toggleShapesBtn.addEventListener('click',()=>{
 shapesVisible=!shapesVisible;
 shapes.forEach(s=>s.style.display=shapesVisible?'block':'none');
+window.shapesVisible=shapesVisible;
 playClickSound();
+saveSettings();
 });
 
 // Softer click sound
