@@ -1,1 +1,59 @@
-kim will answer your phone
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Private Project Announcement</title>
+<style>
+  #announcement {
+    display: none;
+    position: absolute;
+    background-color: #f0f0f0;
+    border: 1px solid #333;
+    padding: 15px;
+    max-width: 400px;
+    font-family: Arial, sans-serif;
+    z-index: 1000;
+  }
+  a {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+<a id="trigger">#</a>
+<div id="announcement">
+  <strong>Private Project Announcement</strong><br><br>
+  This is a highly confidential project I’m about to start working on. It’s similar to Roblox—but with a major difference: almost everything in the platform is editable by users.<br><br>
+  <strong>Key features:</strong>
+  <ul>
+    <li>Fully editable world – users can modify nearly every aspect of the environment</li>
+    <li>Customizable gameplay – create, share, and play your own games</li>
+    <li>Advanced tools – powerful editing tools for creators</li>
+    <li>Community-driven – users can collaborate, trade, and share creations</li>
+    <li>Exclusive access – invite-only project for early contributors</li>
+  </ul>
+  Join the discussion and early access here: <a href="https://discord.gg/qcUucWEhp4" target="_blank">Discord Link</a>
+</div>
+
+<script>
+  const trigger = document.getElementById('trigger');
+  const announcement = document.getElementById('announcement');
+
+  trigger.addEventListener('mouseover', () => {
+    announcement.style.display = 'block';
+    const rect = trigger.getBoundingClientRect();
+    announcement.style.top = rect.bottom + window.scrollY + 'px';
+    announcement.style.left = rect.left + window.scrollX + 'px';
+  });
+
+  trigger.addEventListener('mouseout', () => {
+    announcement.style.display = 'none';
+  });
+</script>
+
+</body>
+</html>
