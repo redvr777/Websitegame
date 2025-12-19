@@ -68,7 +68,7 @@ footer.dark-mode{background:#222;color:#fff;}
 <h2>About BLOSK</h2>
 <p>BLOSK is a next generation platform where creators can shape anything, make anything using presets, and design interactive worlds for players. Users can explore and play these worlds, while creators have complete control over their environment.</p>
 <p>Future updates will include collaboration features that allow multiple creators to work together and support for uploading custom models, expanding what is possible on the platform. BLOSK is a space where imagination meets capability and creativity drives the experience.</p>
-<img src="https://github.com/redvr777/Websitegame/blob/abedab9c8c68748afbe8c46faf0c126bee8b983a/BLOSK.png" alt="BLOSK" style="max-width:100%; height:auto; margin-top:20px;">
+<img src="https://raw.githubusercontent.com/redvr777/Websitegame/abedab9c8c68748afbe8c46faf0c126bee8b983a/BLOSK.png" alt="BLOSK" style="max-width:100%; height:auto; margin-top:20px;">
 </section>
 
 <section id="creators">
@@ -145,8 +145,10 @@ footer.dark-mode{background:#222;color:#fff;}
 
 <script>
 let shapes = [];
+let shapesVisible = true;
+
 function createShapes(num=20){
-    shapes.forEach(s=>document.body.removeChild(s));
+    shapes.forEach(s=>s.remove());
     shapes=[];
     for(let i=0;i<num;i++){
         let s=document.createElement('div');
@@ -175,8 +177,8 @@ function loadSettings(){
     const fontSize = localStorage.getItem('fontSize');
     if(fontSize==='small'){document.body.classList.add('small-font');}
     if(fontSize==='large'){document.body.classList.add('large-font');}
-    const shapesVisible = localStorage.getItem('shapesVisible');
-    if(shapesVisible==='false'){shapes.forEach(s=>s.style.display='none'); window.shapesVisible=false;}else{window.shapesVisible=true;}
+    const storedShapes = localStorage.getItem('shapesVisible');
+    if(storedShapes==='false'){shapes.forEach(s=>s.style.display='none'); shapesVisible=false;}
     const clickVolume = localStorage.getItem('clickVolume');
     if(clickVolume){document.getElementById('click-volume').value = clickVolume;}
 }
@@ -184,7 +186,7 @@ function loadSettings(){
 function saveSettings(){
     localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
     localStorage.setItem('fontSize', document.body.classList.contains('large-font') ? 'large' : document.body.classList.contains('small-font') ? 'small' : 'normal');
-    localStorage.setItem('shapesVisible', window.shapesVisible);
+    localStorage.setItem('shapesVisible', shapesVisible);
     localStorage.setItem('clickVolume', document.getElementById('click-volume').value);
 }
 
@@ -214,67 +216,65 @@ overlay.addEventListener('click',()=>{
 });
 
 toggleThemeBtn.addEventListener('click',()=>{
-document.body.classList.toggle('dark-mode');
-document.querySelector('header').classList.toggle('dark-mode');
-document.querySelector('nav').classList.toggle('dark-mode');
-document.querySelector('footer').classList.toggle('dark-mode');
-document.querySelectorAll('section').forEach(s=>s.classList.toggle('dark-mode'));
-document.querySelectorAll('.feature-box').forEach(f=>f.classList.toggle('dark-mode'));
-settingsModal.classList.toggle('dark-mode');
-playClickSound();
-saveSettings();
+    document.body.classList.toggle('dark-mode');
+    document.querySelector('header').classList.toggle('dark-mode');
+    document.querySelector('nav').classList.toggle('dark-mode');
+    document.querySelector('footer').classList.toggle('dark-mode');
+    document.querySelectorAll('section').forEach(s=>s.classList.toggle('dark-mode'));
+    document.querySelectorAll('.feature-box').forEach(f=>f.classList.toggle('dark-mode'));
+    settingsModal.classList.toggle('dark-mode');
+    playClickSound();
+    saveSettings();
 });
 
 increaseFontBtn.addEventListener('click',()=>{
-document.body.classList.remove('small-font');
-document.body.classList.add('large-font');
-playClickSound();
-saveSettings();
+    document.body.classList.remove('small-font');
+    document.body.classList.add('large-font');
+    playClickSound();
+    saveSettings();
 });
 
 decreaseFontBtn.addEventListener('click',()=>{
-document.body.classList.remove('large-font');
-document.body.classList.add('small-font');
-playClickSound();
-saveSettings();
+    document.body.classList.remove('large-font');
+    document.body.classList.add('small-font');
+    playClickSound();
+    saveSettings();
 });
 
-let shapesVisible=true;
 toggleShapesBtn.addEventListener('click',()=>{
-shapesVisible=!shapesVisible;
-shapes.forEach(s=>s.style.display=shapesVisible?'block':'none');
-window.shapesVisible=shapesVisible;
-playClickSound();
-saveSettings();
+    shapesVisible=!shapesVisible;
+    shapes.forEach(s=>s.style.display=shapesVisible?'block':'none');
+    playClickSound();
+    saveSettings();
 });
 
 function playClickSound(){
-const volume=parseFloat(clickVolumeSlider.value)||0.2;
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-const oscillator = audioCtx.createOscillator();
-const gainNode = audioCtx.createGain();
-oscillator.type='sine';
-oscillator.frequency.setValueAtTime(600, audioCtx.currentTime);
-gainNode.gain.setValueAtTime(0.001, audioCtx.currentTime);
-gainNode.gain.exponentialRampToValueAtTime(volume, audioCtx.currentTime+0.01);
-gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime+0.15);
-oscillator.connect(gainNode);
-gainNode.connect(audioCtx.destination);
-oscillator.start();
-oscillator.stop(audioCtx.currentTime+0.16);
+    const volume=parseFloat(clickVolumeSlider.value)||0.2;
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+    oscillator.type='sine';
+    oscillator.frequency.setValueAtTime(600, audioCtx.currentTime);
+    gainNode.gain.setValueAtTime(0.001, audioCtx.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(volume, audioCtx.currentTime+0.01);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime+0.15);
+    oscillator.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    oscillator.start();
+    oscillator.stop(audioCtx.currentTime+0.16);
 }
 
 document.querySelectorAll('a, button, .cta-button').forEach(el=>{el.addEventListener('click',playClickSound);});
 
 setInterval(()=>{
-shapes.forEach(s=>{
-let x=parseFloat(s.style.left);
-let y=parseFloat(s.style.top);
-x+=Math.random()*2-1;
-y+=Math.random()*2-1;
-s.style.left=x+'px';
-s.style.top=y+'px';
-});
+    shapes.forEach(s=>{
+        let x=parseFloat(s.style.left);
+        let y=parseFloat(s.style.top);
+        x+=Math.random()*2-1;
+        y+=Math.random()*2-1;
+        s.style.left=x+'px';
+        s.style.top=y+'px';
+    });
 },50);
 </script>
 
