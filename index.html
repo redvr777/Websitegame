@@ -177,23 +177,26 @@ document.querySelectorAll('.feature-box').forEach(f=>f.classList.toggle('dark-mo
 settingsModal.classList.toggle('dark-mode');
 playClickSound();
 });
-
 function playClickSound() {
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const bufferSize = audioCtx.sampleRate * 0.02; // 20ms click
-    const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-    const data = buffer.getChannelData(0);
+    const oscillator = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
 
-    // Fill buffer with white noise and apply exponential decay
-    for (let i = 0; i < bufferSize; i++) {
-        data[i] = (Math.random() * 2 - 1) * Math.exp(-i / bufferSize);
-    }
+    oscillator.type = 'triangle'; 
+    oscillator.frequency.setValueAtTime(1000, audioCtx.currentTime); 
+    gainNode.gain.setValueAtTime(0.001, audioCtx.currentTime);
 
-    const source = audioCtx.createBufferSource();
-    source.buffer = buffer;
-    source.connect(audioCtx.destination);
-    source.start();
+  
+    gainNode.gain.exponentialRampToValueAtTime(0.2, audioCtx.currentTime + 0.005);
+   
+    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
+
+    oscillator.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    oscillator.start();
+    oscillator.stop(audioCtx.currentTime + 0.035); 
 }
+
 
 
 document.querySelectorAll('a, button, .cta-button').forEach(el=>{el.addEventListener('click',playClickSound)});
